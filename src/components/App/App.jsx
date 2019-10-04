@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./App.scss";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -7,7 +8,11 @@ export default class App extends React.Component {
         this.state = {};
     }
 
+    getInitialProps() {
+        return {};
+    }
+
     render() {
-        return (<div>{this.props.name}</div>);
+        return (<div className={style.text}>{this.props.name}</div>);
     }
 }
