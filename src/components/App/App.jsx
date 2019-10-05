@@ -1,5 +1,7 @@
 import React from "react";
 import style from "./App.scss";
+import Head from "next/head.js";
+import Page from "../Page/Page.jsx"
 
 export default class App extends React.Component {
     constructor(props) {
@@ -13,6 +15,15 @@ export default class App extends React.Component {
     }
 
     render() {
-        return (<div className={style.text}>{this.props.name}</div>);
+        return (
+            <>
+                <Head>
+                    <title>{this.props.title || ''}</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                </Head>
+                <Page>
+                </Page>
+            </>
+        );
     }
 }

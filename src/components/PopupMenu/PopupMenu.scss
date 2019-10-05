@@ -1,0 +1,62 @@
+@import "../params";
+
+.PopupMenu {
+  position: relative;
+  display: none;
+  z-index: 1;
+  &:target {
+    display: block;
+    & ~ .Selector-Arrow {
+      transform: rotate(180deg);
+    }
+  }
+  &-Modal {
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    box-shadow: 0 4px 16px rgba(53, 73, 93, 0.2);
+    box-sizing: border-box;
+    @media screen and (max-width: $endPointTablet){
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100% !important;
+      top: auto;
+      box-shadow: none;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    &_width {
+      &_topMenu {
+        width: 266px;
+      }
+      &_branch {
+        width: 320px;
+      }
+    }
+  }
+
+  &-Overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: default;
+    @media screen and (max-width: $endPointTablet) {
+      background-color: #00000050;
+    }
+  }
+
+  &-SlideButton {
+    width: 42px;
+    height: 4px;
+    background-color: #e5e5e5;
+    margin: 8px auto 16px;
+    border-radius: 10px;
+    @media screen and (min-width: $endPointTablet) {
+      display: none;
+    }
+  }
+}

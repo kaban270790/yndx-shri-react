@@ -1,0 +1,40 @@
+.Selector {
+  display: flex;
+  cursor: pointer;
+  align-items: stretch;
+
+  &-Content {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+
+    &_borderB {
+      border-bottom: 3px solid #ff4f49;
+    }
+  }
+
+  &-Arrow {
+    margin-top: 1px;
+    margin-left: 4px;
+    padding: 2px;
+    width: 12px;
+    height: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-self: center;
+
+    &_color {
+      &_gray {
+        background-image: url(arrow-gray.svg);
+      }
+
+      &_black {
+        background-image: url(arrow-black.svg);
+      }
+    }
+  }
+
+  &-Text {
+    display: flex;
+  }
+}

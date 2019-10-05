@@ -1,17 +1,17 @@
 import React from "react";
-import {actionTick} from "../src/lib/store.js";
+import {actionTick, actionSetRepositories} from "../src/lib/store.js";
 import {connect} from "react-redux";
 import Time from '../src/components/Time/Time.jsx';
 import nextExpressPage from "next-express/page";
+import App from "../src/components/App/App.jsx";
 
 class Index extends React.Component {
-
     constructor(props) {
         super(props);
-        console.log('index constructor', props);
+        props.dispatch(actionSetRepositories(props.repositories));
     }
 
-    componentDidMount() {
+    componentDidMount(props) {
         this.timer = setInterval(() => {
             this.props.dispatch(actionTick());
         }, 1000);
@@ -22,13 +22,8 @@ class Index extends React.Component {
     }
 
     render() {
-        console.log('render', this.props);
         return <>
-            <div>Timers</div>
-            <Time/>
-            {this.props.repositories ? this.props.repositories.map(function (name) {
-                return <Time key={name}/>
-            }) : null}
+            <App title={"Список файлов"}/>
         </>;
     }
 }

@@ -1,0 +1,59 @@
+@import "../params";
+
+.List {
+  display: flex;
+  flex-direction: column;
+
+
+  &_displayPc {
+    &_none {
+      @media screen and (min-width: $endPointTablet) {
+        display: none;
+      }
+    }
+  }
+
+  &_indentH {
+    &_22 {
+      padding-right: 22px;
+      padding-left: 22px;
+    }
+
+    &_12 {
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+  }
+
+  &_indentV {
+    &_6 {
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+  }
+
+  &-Item {
+
+    &_indentV {
+      &_5 {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      &_8 {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    }
+
+    &_borderB {
+      &_gray {
+        border-bottom: 1px solid #e5e5e5;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
