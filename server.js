@@ -42,6 +42,7 @@ app.prepare()
     })
     .then((reposDir) => {
         const server = nextExpress();
+        // server.use(express.static('.next'));
         server.pageRoute({
             path: "/",
             renderPath: "/index",

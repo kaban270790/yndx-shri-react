@@ -25,9 +25,24 @@ module.exports = withSass(
         },
         {
             webpack(config) {
+                config.module.rules.push(
+                    {
+                        test: /\.svg$/i,
+                        use: [
+                            {
+                                loader: 'file-loader',
+                                options: {
+                                    name: '[Folder]-[name].[ext]',//todo для боя хэши сделать
+                                    outputPath: 'static/css/images',//todo хак с путями, надо разобраться
+                                    publicPath: '../../static/css/images',
+                                },
+                            }
+                        ]
+                    });
                 HACK_removeMinimizeOptionFromCssLoaders(config);
                 return config;
             }
         }
     )
 );
+// http://localhost:3000/_next/36d1a97216ac2a406cd413789d004f76.svg
