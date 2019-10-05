@@ -8,51 +8,29 @@ import TabList from "../src/components/TabList/TabList.jsx";
 import TableMobile from "../src/components/TableMobile/TableMobile.jsx";
 import Files from "../src/components/Files/Files.jsx";
 
+const getReposList = require('../src/server/getReposList.js');
+
 class Index extends React.Component {
     constructor(props) {
         super(props);
         props.dispatch(actionSetRepositories(props.repositories));
     }
 
-    componentDidMount(props) {
-        // this.timer = setInterval(() => {
-        //     this.props.dispatch(actionTick());
-        // }, 1000);
-    }
-
-    componentWillUnmount() {
-        // clearInterval(this.timer);
+    static async getInitialProps(appContext, serverDataFetchFunc) {
+        let props = {};
+        if (typeof serverDataFetchFunc === 'function') {
+            props = await serverDataFetchFunc();
+        }
+        let repositories = [];
+        await getReposList(props.reposDir).then((result) => {
+            repositories = result;
+        });
+        return {repositories};
     }
 
     render() {
-
-        const files = [
-            {
-                ext: 'folder',
-                name: 'name',
-                lastCommit: {
-                    message: 'commit',
-                    hash: 'jdfsdnfkjsdnkfsndkmfyujnk',
-                    committer: 'Alexey Besedin',
-                    ts: Date.now()
-                }
-            },
-            {
-                ext: 'folder',
-                name: 'name',
-                lastCommit: {
-                    message: 'commit',
-                    hash: 'jdfsdnfkjsdnkfsndkmfyujnk',
-                    committer: 'Alexey Besedin',
-                    ts: Date.now()
-                }
-            }
-        ];
         return <>
-            <App title={"Список файлов"}>
-                <TabList active={'files'}/>
-                <Files files={files}/>
-                <TableMobile files={files}/>
+            <App title={"Главная страница"}>
             </App>
         </>;
     }

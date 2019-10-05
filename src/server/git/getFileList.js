@@ -23,7 +23,16 @@ module.exports = (reposDir, commitHash, path) => {
                 fileList = fileList.map(value => value.replace(pathRegExp, ''));
             }
             resolve(
-                fileList
+                fileList.map(value => ({
+                    ext: 'folder',
+                    name: value,
+                    lastCommit: {
+                        ts: Date.now(),
+                        hash: '5jg98478jfmu84389jfw85jf89jf8hejr8e7ufjsd9o',
+                        committer: 'user',
+                        message: 'message'
+                    },
+                }))
             );
         });
     }));

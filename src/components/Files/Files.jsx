@@ -12,12 +12,16 @@ import IconPlus from "../IconPlus/IconPlus.jsx";
 import IconPlusIcon from "../IconPlus/IconPlus-Icon.jsx";
 import IconPlusText from "../IconPlus/IconPlus-Text.jsx";
 import '../IconFile/IconFile.scss';
+import {useSelector} from "react-redux";
 
 const cnIconFile = cn('IconFile');
 
 const cnList = cn('List');
 
 export default (props) => {
+    const {files} = useSelector((state) => ({
+        files: state.files || {}
+    }));
     const modsThText = {
         lHeight: 20,
         size: 14,
@@ -73,7 +77,7 @@ export default (props) => {
                 </TableRow>
             </TableTHead>
             <TableTBody>
-                {props.files.map((file, index) => {
+                {files.length > 0 ? files.map((file, index) => {
                     return (
                         <TableRow key={index}>
                             <TableCell mods={{...modsTd, width: 2}}>
@@ -114,7 +118,7 @@ export default (props) => {
                             </TableCell>
                         </TableRow>
                     );
-                })}
+                }) : null}
             </TableTBody>
         </Table>);
 };

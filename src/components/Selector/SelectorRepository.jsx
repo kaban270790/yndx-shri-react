@@ -23,7 +23,7 @@ export default (props) => {
     return <div className={classNames(props.className, cnSelector())}>
         <PopupMenu className={cnPopupMenu('Modal', {width: 'top-menu'})} popupName={popupName}>
             <List mods={{indentH: 22, indent: 6}}>
-                {repositories ? repositories.map((repos, index) =>
+                {repositories.length > 0 ? repositories.map((repos, index) =>
                     <Text tag={'a'} href={repos.name}
                           key={index}
                           className={cnList('Item', {indentV: 8})}
