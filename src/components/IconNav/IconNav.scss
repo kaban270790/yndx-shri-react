@@ -1,0 +1,13 @@
+.IconNav {
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 10px;
+  &_arrow {
+    &_right {
+      background-image: url(arrow-right.svg);
+    }
+    &_left {
+      background-image: url(arrow-left.svg);
+    }
+  }
+}

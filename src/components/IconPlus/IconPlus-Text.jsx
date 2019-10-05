@@ -1,12 +1,12 @@
-import './List.scss';
+import './IconPlus.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
 
-const cnList = cn('List');
+const cnIconPlus = cn('IconPlus', 'Text');
 
 export default (props) => {
-    return <div className={classNames(cnList(props.mods || {}), props.className)}>
+    return <div className={classNames(cnIconPlus(props.mods || {}), props.className)}>
         {props.children}
     </div>;
 };
