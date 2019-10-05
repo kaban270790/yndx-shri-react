@@ -15,7 +15,6 @@ const cnList = cn('List');
 
 export default (props) => {
     const {repositories} = useSelector((state) => {
-        console.log(state);
         return {
             repositories: state.repositories || {}
         }
