@@ -35,11 +35,12 @@ export default (props) => {
         {listCrumbs.map((crumb, index) => {
             const isLast = (index + 1) === listCrumbs.length;
             return (<>
-                <Text tag={isLast ? 'span' : 'a'}
+                <Text key={`${index}_text`}
+                      tag={isLast ? 'span' : 'a'}
                       href={crumb.link}
                       mods={{...textMods, ...(isLast ? {color: 'black', width: 'bold'} : {})}}
                 >{crumb.name}</Text>
-                {isLast ? null : <Text mods={textMods}>&nbsp;/&nbsp;</Text>}
+                {isLast ? null : <Text key={`${index}_separator`} mods={textMods}>&nbsp;/&nbsp;</Text>}
             </>);
         })}
     </div>;
