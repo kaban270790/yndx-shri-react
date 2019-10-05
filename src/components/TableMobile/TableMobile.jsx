@@ -11,16 +11,19 @@ import IconPlusIcon from '../IconPlus/IconPlus-Icon.jsx';
 import IconPlusText from '../IconPlus/IconPlus-Text.jsx';
 import Text from "../Text/Text.jsx";
 import moment from "moment";
+import {useSelector} from "react-redux";
 
 const cnTableMobile = cn('TableMobile');
-const cnList = cn('List');
 const cnIconNav = cn('IconNav');
 const cnIconFile = cn('IconFile');
 
 export default (props) => {
+    const {files} = useSelector((state) => ({
+        files: state.files || {}
+    }));
 
     return <List mods={{displayPc: 'none'}} className={cnTableMobile()}>
-        {props.files.map((file, index) => {
+        {files.length > 0 ? files.map((file, index) => {
             return <ListItem
                 key={index}
                 mods={{indentV: 5, borderB: 'gray'}}
@@ -75,6 +78,6 @@ export default (props) => {
                     />
                 </IconPlus>
             </ListItem>
-        })}
+        }) : null}
     </List>;
 };

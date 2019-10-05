@@ -42,17 +42,22 @@ app.prepare()
     })
     .then((reposDir) => {
         const server = nextExpress();
-        // server.use(express.static('.next'));
         server.pageRoute({
+            method: 'get',
             path: "/",
             renderPath: "/index",
 
             async getProps(req, res) {
-                let repositories = {r: 1};
-                await getReposList(reposDir).then((result) => {
-                    repositories = result;
-                });
-                return {repositories};
+                return {reposDir};
+            }
+        });
+        server.pageRoute({
+            method: 'get',
+            path: '/repos/:repositoryId',
+            renderPath: "/fileList",
+
+            async getProps(req, res) {
+                return {reposDir, repositoryId: req.params.repositoryId};
             }
         });
 

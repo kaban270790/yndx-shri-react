@@ -25,6 +25,11 @@ module.exports = withSass(
         },
         {
             webpack(config) {
+                config.node = {
+                    'net': 'empty',
+                    'fs': 'empty',
+                    'child_process': 'empty'
+                };
                 config.module.rules.push(
                     {
                         test: /\.svg$/i,
