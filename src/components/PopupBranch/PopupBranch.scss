@@ -1,0 +1,33 @@
+.PopupBranch {
+  width: 320px;
+  &-Current {
+    background-color: #4f4f4f;
+    padding: 10px 12px 6px;
+  }
+
+  &-Separator {
+    background-color: #e5e5e5;
+    margin: 4px 12px;
+    height: 1px;
+  }
+
+  &-List {
+    overflow-y: auto;
+    max-height: 200px;
+    &_hovering {
+      &:hover {
+        background-color: #f4f5f6;
+        > .Text:first-child {
+          //todo подумать над тем как можно обойтись без этого,
+          // возможно средствами js  будет происходит наведение и
+          // навешиание нужных классов для текста
+          font-weight: bold;
+          color: black;
+        }
+        > .Text:last-child {
+          color: #434445;
+        }
+      }
+    }
+  }
+}

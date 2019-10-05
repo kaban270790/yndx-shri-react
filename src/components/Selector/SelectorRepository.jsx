@@ -19,11 +19,10 @@ export default (props) => {
             repositories: state.repositories || {}
         }
     });
-    console.log(repositories);
     const popupName = 'menu-repositories';
     return <div className={classNames(props.className, cnSelector())}>
         <PopupMenu className={cnPopupMenu('Modal', {width: 'top-menu'})} popupName={popupName}>
-            <List>
+            <List mods={{indentH: 22, indent: 6}}>
                 {repositories ? repositories.map((repos, index) =>
                     <Text tag={'a'} href={repos.name}
                           key={index}
