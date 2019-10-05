@@ -6,6 +6,7 @@ import nextExpressPage from "next-express/page";
 import App from "../src/components/App/App.jsx";
 import TabList from "../src/components/TabList/TabList.jsx";
 import TableMobile from "../src/components/TableMobile/TableMobile.jsx";
+import Files from "../src/components/Files/Files.jsx";
 
 class Index extends React.Component {
     constructor(props) {
@@ -50,6 +51,7 @@ class Index extends React.Component {
         return <>
             <App title={"Список файлов"}>
                 <TabList active={'files'}/>
+                <Files files={files}/>
                 <TableMobile files={files}/>
             </App>
         </>;

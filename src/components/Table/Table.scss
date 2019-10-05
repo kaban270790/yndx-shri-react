@@ -1,0 +1,93 @@
+@import "../params";
+
+.Table {
+  margin-right: 20px;
+  margin-left: 20px;
+  display: grid;
+  border-collapse: collapse;
+  grid-template-columns: repeat(12, 2fr);
+
+  &_displayTablet {
+    &_none {
+      @media screen and (max-width: $endPointTablet) {
+        display: none;
+      }
+    }
+  }
+
+  &-Head {
+    display: contents;
+  }
+
+  &-Body {
+    display: contents;
+  }
+
+  &-Row {
+    display: contents;
+  }
+
+  &-Cell {
+    display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &_width {
+      &_2 {
+        grid-column-start: span 2;
+      }
+
+      &_4 {
+        grid-column-start: span 4;
+      }
+
+      &_6 {
+        grid-column-start: span 6;
+      }
+    }
+
+    &_borderB {
+      &_dark {
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      &_light {
+        border-bottom: 1px solid #f2f2f2;
+      }
+    }
+
+    &_align {
+      &_right {
+        justify-content: flex-end;
+      }
+    }
+
+    &_indentB {
+      &_8 {
+        padding-bottom: 8px;
+      }
+
+      &_12 {
+        padding-bottom: 12px;
+      }
+    }
+
+    &_indentT {
+      &_16 {
+        padding-top: 16px;
+      }
+
+      &_18 {
+        padding-top: 18px;
+      }
+    }
+
+    &_indentH {
+      &_8 {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  }
+}
