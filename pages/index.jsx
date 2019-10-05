@@ -12,13 +12,13 @@ class Index extends React.Component {
     }
 
     componentDidMount(props) {
-        this.timer = setInterval(() => {
-            this.props.dispatch(actionTick());
-        }, 1000);
+        // this.timer = setInterval(() => {
+        //     this.props.dispatch(actionTick());
+        // }, 1000);
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        // clearInterval(this.timer);
     }
 
     render() {

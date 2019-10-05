@@ -1,0 +1,29 @@
+@import "../params";
+
+.Footer {
+  display: flex;
+  padding: 18px 20px 14px;
+  justify-content: flex-end;
+  border-top: 1px solid #f0f2f3;
+
+  &-TradeSecret {
+    flex-grow: 1;
+    @media screen and (max-width: $endPointTablet) {
+      display: none;
+    }
+  }
+
+  &-UiVersion {
+    flex-shrink: 0;
+    margin-right: 32px;
+  }
+
+  &-Copyright {
+    flex-shrink: 0;
+    margin-right: 3px;
+  }
+
+  &-YandexLink {
+    flex-shrink: 0;
+  }
+}
