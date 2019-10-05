@@ -9,31 +9,31 @@ module.exports = (reposDir, commitHash, path) => {
     if (path) {
         options.push(`${path}/`);
     }
-
     return (new Promise((resolve, reject) => {
         execFile('git', options, {cwd: reposDir}, (err, data, errMess) => {
             if (err && errMess) {
                 reject(errMess);
             }
-            const clearPath = function (path) {
+            const clearPath = function (pathFile) {
                 if (path) {
                     let pathRegExp = new RegExp(`${path}/`, 'g');
-                    path.replace(pathRegExp, '')
+                    pathFile = pathFile.replace(pathRegExp, '');
                 }
-                return path;
+                return pathFile;
             };
             let fileList = data.split("\n")
                 .filter(value => value.trim().length > 0).map(str => {
                     let fileData = str.split(' ');
                     let ext = fileData[1] === 'tree' ? 'folder' : 'text';
-                    fileData = fileData[2].split("\t");
-                    let hash = fileData.shift();
+                    fileData = fileData.slice(2).join(' ').split("\t");
+                    let pathFile = fileData[1];
                     return {
                         ext: ext,
-                        name: clearPath(fileData.join(' ')),
+                        name: clearPath(pathFile),
+                        fullPath: pathFile,
                         lastCommit: {
                             ts: Date.now(),
-                            hash: hash,
+                            hash: '5abbbdc591dc90bb077c454c0623162ab244cf8e',
                             committer: 'user',
                             message: 'message'
                         },

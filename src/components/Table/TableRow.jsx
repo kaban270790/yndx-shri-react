@@ -6,7 +6,7 @@ import {classnames as classNames} from "@bem-react/classnames";
 const cnTable = cn('Table', 'Row');
 
 export default (props) => {
-    return <tr className={classNames(cnTable(props.mods || {}), props.className)}>
-    {props.children}
+    return <tr className={classNames(cnTable(props.mods || {}), props.className)} onClick={props.onClick || null}>
+        {props.children}
     </tr>;
 };

@@ -16,35 +16,34 @@ import {useSelector} from "react-redux";
 
 const cnIconFile = cn('IconFile');
 
-const cnList = cn('List');
+const modsThText = {
+    lHeight: 20,
+    size: 14,
+    color: 'lightGray',
+    width: 'normal'
+};
+const modsTdText = {
+    lHeight: 20,
+    size: 14,
+    color: 'black',
+};
+const modsTh = {
+    borderB: 'dark',
+    indentB: 8,
+    indentH: 8,
+    indentT: 16
+};
+const modsTd = {
+    borderB: 'light',
+    indentB: 12,
+    indentH: 8,
+    indentT: 18
+};
 
 export default (props) => {
     const {files} = useSelector((state) => ({
         files: state.files || {}
     }));
-    const modsThText = {
-        lHeight: 20,
-        size: 14,
-        color: 'lightGray',
-        width: 'normal'
-    };
-    const modsTdText = {
-        lHeight: 20,
-        size: 14,
-        color: 'black',
-    };
-    const modsTh = {
-        borderB: 'dark',
-        indentB: 8,
-        indentH: 8,
-        indentT: 16
-    };
-    const modsTd = {
-        borderB: 'light',
-        indentB: 12,
-        indentH: 8,
-        indentT: 18
-    };
     return (
         <Table mods={{displayTablet: 'none'}}>
             <TableTHead>
@@ -78,6 +77,7 @@ export default (props) => {
             </TableTHead>
             <TableTBody>
                 {files.length > 0 ? files.map((file, index) => {
+                    const url = `/repos/lifehacker/tree/${file.lastCommit.hash}/${file.fullPath}`;
                     return (
                         <TableRow key={index}>
                             <TableCell mods={{...modsTd, width: 2}}>
@@ -89,7 +89,9 @@ export default (props) => {
                                         className={cnIconFile({ext: file.ext})}/>
                                 </IconPlus>
                                 <IconPlusText>
-                                    <Text tag={"span"} mods={{...modsTdText, width: 'bold'}}>{file.name}</Text>
+                                    <Text tag={(file.ext === 'folder' ? 'a' : 'span')}
+                                          href={url}
+                                          mods={{...modsTdText, width: 'bold', underline: 'non'}}>{file.name}</Text>
                                 </IconPlusText>
                             </TableCell>
                             <TableCell mods={{...modsTd, width: 2}}>

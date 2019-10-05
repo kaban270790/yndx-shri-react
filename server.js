@@ -53,11 +53,16 @@ app.prepare()
         });
         server.pageRoute({
             method: 'get',
-            path: '/repos/:repositoryId',
+            path: ['/repos/:repositoryId', '/repos/:repositoryId/tree/:commitHash?/:path([^/]*)?'],
             renderPath: "/fileList",
 
             async getProps(req, res) {
-                return {reposDir, repositoryId: req.params.repositoryId};
+                return {
+                    reposDir,
+                    repositoryId: req.params.repositoryId,
+                    commitHash: req.params.commitHash,
+                    path: req.params.path
+                };
             }
         });
 

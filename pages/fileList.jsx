@@ -27,7 +27,7 @@ class FileList extends React.Component {
                 .then((result) => {
                     reposPath = result;
                 });
-            await getFileList(reposPath, props.hash || null, props.path || null)
+            await getFileList(reposPath, props.commitHash || null, props.path || null)
                 .then((result) => {
                     files = result;
                 });
