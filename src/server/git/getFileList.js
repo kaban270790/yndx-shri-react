@@ -3,7 +3,6 @@ const {execFile} = require('child_process');
 module.exports = (reposDir, commitHash, path) => {
     let options = [
         'ls-tree',
-        '--name-only',
         commitHash || 'HEAD'
     ];
 
@@ -16,24 +15,39 @@ module.exports = (reposDir, commitHash, path) => {
             if (err && errMess) {
                 reject(errMess);
             }
+            const clearPath = function (path) {
+                if (path) {
+                    let pathRegExp = new RegExp(`${path}/`, 'g');
+                    path.replace(pathRegExp, '')
+                }
+                return path;
+            };
             let fileList = data.split("\n")
-                .filter(value => value.trim().length > 0);
-            if (path) {
-                let pathRegExp = new RegExp(`${path}/`, 'g');
-                fileList = fileList.map(value => value.replace(pathRegExp, ''));
-            }
-            resolve(
-                fileList.map(value => ({
-                    ext: 'folder',
-                    name: value,
-                    lastCommit: {
-                        ts: Date.now(),
-                        hash: '5jg98478jfmu84389jfw85jf89jf8hejr8e7ufjsd9o',
-                        committer: 'user',
-                        message: 'message'
-                    },
-                }))
-            );
+                .filter(value => value.trim().length > 0).map(str => {
+                    let fileData = str.split(' ');
+                    let ext = fileData[1] === 'tree' ? 'folder' : 'text';
+                    fileData = fileData[2].split("\t");
+                    let hash = fileData.shift();
+                    return {
+                        ext: ext,
+                        name: clearPath(fileData.join(' ')),
+                        lastCommit: {
+                            ts: Date.now(),
+                            hash: hash,
+                            committer: 'user',
+                            message: 'message'
+                        },
+                    };
+                }).sort((a, b) => {
+                    if (a.ext === 'folder' && b !== 'folder') {
+                        return -1;
+                    }
+                    if (a.ext !== 'folder' && b === 'folder') {
+                        return 1;
+                    } else
+                        return 0;
+                });
+            resolve(fileList);
         });
     }));
 };
