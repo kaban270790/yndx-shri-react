@@ -1,18 +1,19 @@
 import React from "react";
-import App from "../src/components/App/App.jsx";
-import {actionTick, reducer} from "../src/lib/store.js";
+import {actionTick} from "../src/lib/store.js";
 import {connect} from "react-redux";
 import Time from '../src/components/Time/Time.jsx';
+import nextExpressPage from "next-express/page";
 
 class Index extends React.Component {
-    static getInitialProps({reduxStore, req}) {
-        reduxStore.dispatch(actionTick());
-        return {};
+
+    constructor(props) {
+        super(props);
+        console.log('index constructor', props);
     }
 
     componentDidMount() {
         this.timer = setInterval(() => {
-            this.props.actionTick();
+            this.props.dispatch(actionTick());
         }, 1000);
     }
 
@@ -21,8 +22,15 @@ class Index extends React.Component {
     }
 
     render() {
-        return <Time/>;
+        console.log('render', this.props);
+        return <>
+            <div>Timers</div>
+            <Time/>
+            {this.props.repositories ? this.props.repositories.map(function (name) {
+                return <Time key={name}/>
+            }) : null}
+        </>;
     }
 }
 
-export default connect(null, {actionTick})(Index);
+export default connect()(nextExpressPage(Index));

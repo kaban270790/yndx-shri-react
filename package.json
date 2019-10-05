@@ -4,8 +4,11 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "@bem-react/classname": "^1.5.6",
     "@zeit/next-sass": "^1.0.1",
+    "body-parser": "latest",
     "css-loader": "^3.2.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "next": "^9.0.7",
     "next-express": "^1.0.1",
@@ -14,13 +17,12 @@
     "react-dom": "^16.10.1",
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
-    "@bem-react/classname": "^1.5.6"
+    "redux-devtools-extension": "^2.13.8"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next dev",
+    "dev": "node server.js --path=../",
     "prod": "next build & next start"
   },
   "repository": {

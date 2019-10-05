@@ -17,20 +17,17 @@ function getOrCreateStore(state) {
 
 export default App => {
     return class AppWithRedux extends React.Component {
-        static async getInitialProps (appContext) {
+        static async getInitialProps(appContext) {
             const reduxStore = getOrCreateStore();
 
             appContext.ctx.reduxStore = reduxStore;
 
             let props = {};
-            if (typeof App.getInitialProps === 'function') {
-                props = await App.getInitialProps(appContext);
+            if (typeof appContext.Component.getInitialProps === 'function') {
+                props = appContext.Component.getInitialProps ? await appContext.Component.getInitialProps(appContext.ctx) : {}
             }
-
-            return {
-                ...props,
-                initializeState: reduxStore.getState()
-            };
+            props = Object.assign({}, {props}, {initializeState: reduxStore.getState()});
+            return props;
         }
 
         /**
@@ -41,8 +38,8 @@ export default App => {
             this.reduxStore = getOrCreateStore(props.initializeState);
         }
 
-        render () {
-            return <App {...this.props} reduxStore={this.reduxStore} />;
+        render() {
+            return <App {...this.props} reduxStore={this.reduxStore}/>;
         }
     }
 };
