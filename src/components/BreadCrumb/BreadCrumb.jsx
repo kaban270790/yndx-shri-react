@@ -2,28 +2,16 @@ import './BreadCrumb.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
 import Text from "../Text/Text.jsx";
+import {useSelector} from "react-redux";
 
 const cnBreadCrumb = cn('BreadCrumb');
 
 export default (props) => {
-    const listCrumbs = [//todo получать будем
-        {
-            name: 'arcadia',
-            link: '#',
-        },
-        {
-            name: 'trunk',
-            link: '#',
-        },
-        {
-            name: 'arcadia',
-            link: '#',
-        },
-        {
-            name: 'arcanum',
-            link: '#',
+    const {breadCrumbs} = useSelector((state) => {
+        return {
+            breadCrumbs: state.breadCrumbs || [],
         }
-    ];
+    });
     const textMods = {
         lHeight: 20,
         size: 14,
@@ -32,8 +20,8 @@ export default (props) => {
         marginR: 3
     };
     return <div className={cnBreadCrumb({borderB: true})}>
-        {listCrumbs.map((crumb, index) => {
-            const isLast = (index + 1) === listCrumbs.length;
+        {breadCrumbs.length > 0 ? breadCrumbs.map((crumb, index) => {
+            const isLast = (index + 1) === breadCrumbs.length;
             return (<>
                 <Text key={`${index}_text`}
                       tag={isLast ? 'span' : 'a'}
@@ -42,6 +30,6 @@ export default (props) => {
                 >{crumb.name}</Text>
                 {isLast ? null : <Text key={`${index}_separator`} mods={textMods}>&nbsp;/&nbsp;</Text>}
             </>);
-        })}
+        }) : null}
     </div>;
 };

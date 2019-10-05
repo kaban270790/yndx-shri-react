@@ -4,11 +4,16 @@ import {cn} from "@bem-react/classname";
 import Text from "../Text/Text.jsx";
 import moment from "moment";
 import SelectorBranch from "../Selector/SelectorBranch.jsx";
+import {useSelector} from "react-redux";
 
 const cnBranch = cn('Branch');
 
 export default (props) => {
-    const repositoryName = 'arcadia';
+    const {currentRepositoryName} = useSelector((state) => {
+        return {
+            currentRepositoryName: state.currentRepository
+        }
+    });
     const branch = {
         lastCommit: {
             hash: 'sadjdhfbjdfbjkxjsndhjfdjakshdsnfkjsnjkd',
@@ -22,7 +27,7 @@ export default (props) => {
                 color: 'black',
                 size: 24,
                 lHeight: 28
-            }}>{repositoryName}</Text>
+            }}>{currentRepositoryName}</Text>
             <SelectorBranch className={cnBranch('BranchName')}>
             </SelectorBranch>
         </div>

@@ -1,34 +1,44 @@
 import './Selector.scss';
 import './../PopupMenu/PopupMenu.scss';
 import './../List/List.scss';
-import React from "react";
+import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
 import PopupMenu from "../PopupMenu/PopupMenu.jsx";
 import List from "../List/List.jsx";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import Text from "../Text/Text.jsx";
+import {actionSetCurrentRepository} from "../../lib/store.js";
+import Link from "next/link.js";
 
 const cnSelector = cn('Selector');
 const cnPopupMenu = cn('PopupMenu');
 const cnList = cn('List');
 
 export default (props) => {
-    const {repositories} = useSelector((state) => {
+    const {repositories, currentRepositoryName} = useSelector((state) => {
         return {
-            repositories: state.repositories || {}
+            repositories: state.repositories || {},
+            currentRepositoryName: state.currentRepository
         }
     });
+    const dispatch = useDispatch()
+    const changeRepository = useCallback(
+        (name) => dispatch(actionSetCurrentRepository(name)),
+        [dispatch]
+    );
     const popupName = 'menu-repositories';
     return <div className={classNames(props.className, cnSelector())}>
         <PopupMenu className={cnPopupMenu('Modal', {width: 'top-menu'})} popupName={popupName}>
             <List mods={{indentH: 22, indent: 6}}>
                 {repositories.length > 0 ? repositories.map((repos, index) =>
-                    <Text tag={'a'} href={repos.name}
-                          key={index}
-                          className={cnList('Item', {indentV: 8})}
-                          mods={{color: 'black', size: 14, lHeight: 20, underline: 'non'}}
-                    >{repos.name}</Text>
+                    <Link href={`/repos/${repos.name}`}>
+                        <Text tag={'span'} onClick={changeRepository.bind(this, repos.name)}
+                              key={index}
+                              className={cnList('Item', {indentV: 8})}
+                              mods={{color: 'black', size: 14, lHeight: 20, underline: 'non'}}
+                        >{repos.name}</Text>
+                    </Link>
                 ) : null}
             </List>
         </PopupMenu>
@@ -43,7 +53,7 @@ export default (props) => {
                 }}>Repository</Text>
                 <Text tag={"span"}
                       mods={{color: 'black', size: 14, lHeight: 18}}
-                >Arc</Text>
+                >{currentRepositoryName}</Text>
             </div>
         </a>
         <div className={cnSelector('Arrow', {color: 'black'})}/>

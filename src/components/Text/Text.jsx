@@ -14,16 +14,16 @@ export default (props) => {
 
     switch (props.tag) {
         case 'a':
-            return <a href={props.href} className={className}>
+            return <a href={props.href} className={className} onClick={props.onClick || null}>
                 {props.children}
             </a>;
         case 'span':
-            return <span className={className}>
+            return <span className={className} onClick={props.onClick || null}>
                 {props.children}
             </span>;
         case 'div':
         default:
-            return <div className={className}>
+            return <div className={className} onClick={props.onClick || null}>
                 {props.children}
             </div>;
     }

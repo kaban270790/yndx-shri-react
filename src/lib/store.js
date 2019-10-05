@@ -3,14 +3,19 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 
 const initialState = {
     time: null,
-    repositories: {},
+    repositories: [],
+    files: [],
+    currentRepository: '',
+    url: '',
+    breadCrumbs: []
 };
 export const types = {
     INIT: '@@init',
     TICK: 'TICK',
     TIME_CREATE: 'TIME_CREATE',
     SET_REPOSITORIES: 'SET_REPOSITORIES',
-    SET_FILES: 'SET_FILES'
+    SET_FILES: 'SET_FILES',
+    SET_CURRENT_REPOSITORY: 'SET_CURRENT_REPOSITORY'
 };
 /**
  * @param {*} state
@@ -30,6 +35,12 @@ export const reducer = (state = initialState, action) => {
         case types.SET_FILES:
             return Object.assign({}, state, {
                 files: action.files
+            });
+        case types.SET_CURRENT_REPOSITORY:
+            return Object.assign({}, state, {
+                url: action.url,
+                currentRepository: action.currentRepository,
+                breadCrumbs: action.breadCrumbs
             });
         default:
             return state;
@@ -52,6 +63,20 @@ export const actionSetFiles = (files) => {
     return {
         type: types.SET_FILES,
         files
+    };
+};
+export const actionSetCurrentRepository = (repository) => {
+    let url = `/repos/${repository}`;
+    return {
+        type: types.SET_CURRENT_REPOSITORY,
+        currentRepository: repository,
+        url: url,
+        breadCrumbs: [
+            {
+                name: repository,
+                link: url
+            }
+        ]
     };
 };
 
