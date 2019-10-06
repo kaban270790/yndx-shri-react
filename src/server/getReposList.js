@@ -7,6 +7,7 @@ const fs = require("fs");
 module.exports = (reposDir) => {
     return (new Promise((resolve, reject) => {
         fs.readdir(reposDir, {withFileTypes: true}, (err, files) => {
+            console.log('as', err, files);
             if (err) {
                 reject(err)
             }
