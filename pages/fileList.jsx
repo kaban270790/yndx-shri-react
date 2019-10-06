@@ -1,5 +1,10 @@
 import React from "react";
-import {actionSetCurrentRepository, actionSetFiles, actionSetRepositories} from "../src/lib/store.js";
+import {
+    actionSetCurrentPath,
+    actionSetCurrentRepository,
+    actionSetFiles,
+    actionSetRepositories
+} from "../src/lib/store.js";
 import {connect} from "react-redux";
 import nextExpressPage from "next-express/page";
 import App from "../src/components/App/App.jsx";
@@ -51,7 +56,7 @@ class FileList extends React.Component {
                 }
             }
         }
-        return {repositories, files, repositoryName: props.repositoryId};
+        return {repositories, files, repositoryName: props.repositoryId, currentPath: props.path || ''};
     }
 
     constructor(props) {
@@ -63,6 +68,7 @@ class FileList extends React.Component {
         this.props.dispatch(actionSetRepositories(this.props.repositories));
         this.props.dispatch(actionSetFiles({files: this.props.files}));
         this.props.dispatch(actionSetCurrentRepository(this.props.repositoryName));
+        this.props.dispatch(actionSetCurrentPath(this.props.currentPath));
     }
 
     render() {

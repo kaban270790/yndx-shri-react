@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
-import {classnames as classNames} from "@bem-react/classnames";
 import Table from "../Table/Table.jsx";
 import TableTHead from "../Table/TableTHead.jsx";
 import TableRow from "../Table/TableRow.jsx";
@@ -12,7 +11,9 @@ import IconPlus from "../IconPlus/IconPlus.jsx";
 import IconPlusIcon from "../IconPlus/IconPlus-Icon.jsx";
 import IconPlusText from "../IconPlus/IconPlus-Text.jsx";
 import '../IconFile/IconFile.scss';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import Link from "next/link.js";
+import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
 
 const cnIconFile = cn('IconFile');
 
@@ -41,9 +42,26 @@ const modsTd = {
 };
 
 export default (props) => {
-    const {files} = useSelector((state) => ({
-        files: state.files || {}
+    const {files, currentRepositoryName} = useSelector((state) => ({
+        files: state.files || {},
+        currentRepositoryName: state.currentRepository
     }));
+
+    const dispatch = useDispatch();
+    const openDir = useCallback(
+        (repository, hash, path) => {
+            dispatch(actionApiRequest(
+                `/api/repos/${repository}/tree/${hash}/${path}`,
+                {
+                    method: 'GET',
+                    mode: 'cors'
+                },
+                actionSetFiles
+            ));
+            dispatch(actionSetCurrentPath(path));
+        },
+        [dispatch]
+    );
     return (
         <Table mods={{displayTablet: 'none'}}>
             <TableTHead>
@@ -77,7 +95,7 @@ export default (props) => {
             </TableTHead>
             <TableTBody>
                 {files.length > 0 ? files.map((file, index) => {
-                    const url = `/repos/lifehacker/tree/${file.lastCommit.hash}/${file.fullPath}`;
+                    const url = `/repos/${currentRepositoryName}/tree/${file.lastCommit.hash}/${file.fullPath}`;
                     return (
                         <TableRow key={index}>
                             <TableCell mods={{...modsTd, width: 2}}>
@@ -89,9 +107,22 @@ export default (props) => {
                                         className={cnIconFile({ext: file.ext})}/>
                                 </IconPlus>
                                 <IconPlusText>
-                                    <Text tag={(file.ext === 'folder' ? 'a' : 'span')}
-                                          href={url}
-                                          mods={{...modsTdText, width: 'bold', underline: 'non'}}>{file.name}</Text>
+                                    {file.ext === 'folder' ?
+                                        <Link href={`/fileList`} as={url}>
+                                            <Text tag={'span'}
+                                                  onClick={openDir.bind(this, currentRepositoryName, file.lastCommit.hash, file.fullPath)}
+                                                  mods={{
+                                                      ...modsTdText,
+                                                      width: 'bold',
+                                                      underline: 'non'
+                                                  }}>{file.name}</Text>
+                                        </Link> :
+                                        <Text tag={'span'}
+                                              mods={{
+                                                  ...modsTdText,
+                                                  width: 'bold',
+                                                  underline: 'non'
+                                              }}>{file.name}</Text>}
                                 </IconPlusText>
                             </TableCell>
                             <TableCell mods={{...modsTd, width: 2}}>

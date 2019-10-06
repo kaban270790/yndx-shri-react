@@ -1,15 +1,19 @@
 import './BreadCrumb.scss';
-import React from "react";
+import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
 import Text from "../Text/Text.jsx";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
+import Link from "next/link.js";
 
 const cnBreadCrumb = cn('BreadCrumb');
 
 export default (props) => {
-    const {breadCrumbs} = useSelector((state) => {
+    const {currentPath, currentRepositoryName, currentHash} = useSelector((state) => {
         return {
-            breadCrumbs: state.breadCrumbs || [],
+            currentPath: state.currentPath || '',
+            currentRepositoryName: state.currentRepository,
+            currentHash: state.currentHash
         }
     });
     const textMods = {
@@ -19,17 +23,73 @@ export default (props) => {
         underline: 'non',
         marginR: 3
     };
+    let breadCrumbs = [];
+
+
+    const dispatch = useDispatch();
+    const openDir = useCallback(
+        (repository, hash, path) => {
+            dispatch(actionApiRequest(
+                `/api/repos/${repository}/tree/${hash}${path}`,
+                {
+                    method: 'GET',
+                    mode: 'cors'
+                },
+                actionSetFiles
+            ));
+            dispatch(actionSetCurrentPath(path));
+        },
+        [dispatch]
+    );
+
+    if (currentRepositoryName) {
+        let href = `/repos/${currentRepositoryName}/tree/${currentHash}`;
+        breadCrumbs.push({
+            name: currentRepositoryName,
+            link: `/api${href}`,
+            href: href,
+            repository: currentRepositoryName,
+            hash: currentHash,
+            path: '/',
+        });
+        if (typeof currentPath === 'string') {//todo почему то иногда хрень а не строка приходит :(((
+            let path = '';
+            currentPath.split('/')
+                .filter(value => value.trim().length > 0)
+                .forEach(dir => {
+                    path += (`/${dir}`);
+                    breadCrumbs.push({
+                        name: dir,
+                        link: `/api${href}/${path}`,
+                        href: `${href}/${path}`,
+                        repository: currentRepositoryName,
+                        hash: currentHash,
+                        path: path,
+                    })
+                });
+        }
+        console.log(breadCrumbs);
+    }
     return <div className={cnBreadCrumb({borderB: true})}>
         {breadCrumbs.length > 0 ? breadCrumbs.map((crumb, index) => {
             const isLast = (index + 1) === breadCrumbs.length;
-            return (<>
-                <Text key={`${index}_text`}
-                      tag={isLast ? 'span' : 'a'}
-                      href={crumb.link}
-                      mods={{...textMods, ...(isLast ? {color: 'black', width: 'bold'} : {})}}
+            if (isLast) {
+                return <Text key={`${index}_text`}
+                             tag={'span'}
+                             mods={{...textMods, color: 'black', width: 'bold'}}
                 >{crumb.name}</Text>
-                {isLast ? null : <Text key={`${index}_separator`} mods={textMods}>&nbsp;/&nbsp;</Text>}
-            </>);
+            } else {
+                return (<>
+                    <Link href={`/fileList`} as={crumb.href}>
+                        <Text key={`${index}_text`}
+                              tag={'span'}
+                              onClick={openDir.bind(this, crumb.repository, crumb.hash, crumb.path)}
+                              mods={{...textMods, ...(isLast ? {color: 'black', width: 'bold'} : {})}}
+                        >{crumb.name}</Text>
+                    </Link>
+                    <Text key={`${index}_separator`} mods={textMods}>&nbsp;/&nbsp;</Text>
+                </>)
+            }
         }) : null}
     </div>;
 };

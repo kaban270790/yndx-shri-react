@@ -8,7 +8,11 @@ import PopupMenu from "../PopupMenu/PopupMenu.jsx";
 import List from "../List/List.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import Text from "../Text/Text.jsx";
-import {actionSetCurrentRepository, actionSetFiles} from "../../lib/store.js";
+import {
+    actionApiRequest, actionSetBreadCrumb,
+    actionSetCurrentRepository,
+    actionSetFiles
+} from "../../lib/store.js";
 import Link from "next/link";
 import {useRouter} from "next/router";
 
@@ -17,10 +21,11 @@ const cnPopupMenu = cn('PopupMenu');
 const cnList = cn('List');
 
 export default (props) => {
-    const {repositories, currentRepositoryName} = useSelector((state) => {
+    const {repositories, currentRepositoryName, breadCrumbs} = useSelector((state) => {
         return {
             repositories: state.repositories || {},
-            currentRepositoryName: state.currentRepository
+            currentRepositoryName: state.currentRepository,
+            breadCrumbs: state.breadCrumbs
         }
     });
     const dispatch = useDispatch();
@@ -28,15 +33,14 @@ export default (props) => {
         (name) => {
             dispatch(actionSetCurrentRepository(name));
             dispatch(actionSetFiles({files: []}));
-            dispatch({
-                type: 'API_REQUEST',
-                href: `/api/repos/${name}`,
-                params: {
+            dispatch(actionApiRequest(
+                `/api/repos/${name}`,
+                {
                     method: 'GET',
                     mode: 'cors'
                 },
-                subAction: actionSetFiles
-            });
+                actionSetFiles
+            ));
         },
         [dispatch]
     );

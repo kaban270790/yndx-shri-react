@@ -8,7 +8,8 @@ const initialState = {
     files: [],
     currentRepository: '',
     url: '',
-    breadCrumbs: []
+    currentHash: '5abbbdc591dc90bb077c454c0623162ab244cf8e',
+    currentPath: ''
 };
 export const types = {
     INIT: '@@init',
@@ -16,7 +17,9 @@ export const types = {
     TIME_CREATE: 'TIME_CREATE',
     SET_REPOSITORIES: 'SET_REPOSITORIES',
     SET_FILES: 'SET_FILES',
-    SET_CURRENT_REPOSITORY: 'SET_CURRENT_REPOSITORY'
+    SET_CURRENT_REPOSITORY: 'SET_CURRENT_REPOSITORY',
+    API_REQUEST: 'API_REQUEST',
+    SET_CURRENT_PATH: 'SET_CURRENT_PATH',
 };
 /**
  * @param {*} state
@@ -39,9 +42,11 @@ export const reducer = (state = initialState, action) => {
             });
         case types.SET_CURRENT_REPOSITORY:
             return Object.assign({}, state, {
-                url: action.url,
                 currentRepository: action.currentRepository,
-                breadCrumbs: action.breadCrumbs
+            });
+        case types.SET_CURRENT_PATH:
+            return Object.assign({}, state, {
+                currentPath: action.path
             });
         default:
             return state;
@@ -67,18 +72,20 @@ export const actionSetFiles = ({files}) => {
     };
 };
 export const actionSetCurrentRepository = (repository) => {
-    let url = `/repos/${repository}`;
     return {
         type: types.SET_CURRENT_REPOSITORY,
         currentRepository: repository,
-        url: url,
-        breadCrumbs: [
-            {
-                name: repository,
-                link: url
-            }
-        ]
     };
+};
+export const actionApiRequest = (href, params, subAction) => {
+    return {
+        type: types.API_REQUEST, href, params, subAction
+    }
+};
+export const actionSetCurrentPath = (path) => {
+    return {
+        type: types.SET_CURRENT_PATH, path
+    }
 };
 
 export const actionInitStore = () => {
