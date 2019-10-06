@@ -2,7 +2,7 @@ import './TableMobile.scss';
 import '../List/List.scss';
 import '../IconNav/IconNav.scss';
 import '../IconFile/IconFile.scss';
-import React from "react";
+import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
 import List from "../List/List.jsx";
 import ListItem from "../List/List-Item.jsx";
@@ -11,19 +11,39 @@ import IconPlusIcon from '../IconPlus/IconPlus-Icon.jsx';
 import IconPlusText from '../IconPlus/IconPlus-Text.jsx';
 import Text from "../Text/Text.jsx";
 import moment from "moment";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import Link from "next/link.js";
+import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
 
 const cnTableMobile = cn('TableMobile');
 const cnIconNav = cn('IconNav');
 const cnIconFile = cn('IconFile');
 
 export default (props) => {
-    const {files} = useSelector((state) => ({
-        files: state.files || {}
+    const {files, currentRepositoryName} = useSelector((state) => ({
+        files: state.files || {},
+        currentRepositoryName: state.currentRepository
     }));
+
+    const dispatch = useDispatch();
+    const openDir = useCallback(
+        (repository, hash, path) => {
+            dispatch(actionApiRequest(
+                `/api/repos/${repository}/tree/${hash}/${path}`,
+                {
+                    method: 'GET',
+                    mode: 'cors'
+                },
+                actionSetFiles
+            ));
+            dispatch(actionSetCurrentPath(path));
+        },
+        [dispatch]
+    );
 
     return <List mods={{displayPc: 'none'}} className={cnTableMobile()}>
         {files.length > 0 ? files.map((file, index) => {
+            const url = `/repos/${currentRepositoryName}/tree/${file.lastCommit.hash}/${file.fullPath}`;
             return <ListItem
                 key={index}
                 mods={{indentV: 5, borderB: 'gray'}}
@@ -72,10 +92,14 @@ export default (props) => {
                             </ListItem>
                         </List>
                     </IconPlusText>
-                    <IconPlusIcon
-                        mods={{marginL: 8}}
-                        className={cnIconNav({arrow: 'right'})}
-                    />
+                    {file.ext === 'folder' ?
+                        <Link href={`/fileList`} as={url}>
+                            <IconPlusIcon
+                                mods={{marginL: 8}}
+                                onClick={openDir.bind(this, currentRepositoryName, file.lastCommit.hash, file.fullPath)}
+                                className={cnIconNav({arrow: 'right'})}
+                            />
+                        </Link> : null}
                 </IconPlus>
             </ListItem>
         }) : null}

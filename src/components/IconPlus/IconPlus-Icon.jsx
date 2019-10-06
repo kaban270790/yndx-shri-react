@@ -6,5 +6,6 @@ import {classnames as classNames} from "@bem-react/classnames";
 const cnIconPlus = cn('IconPlus', 'Icon');
 
 export default (props) => {
-    return <div className={classNames(cnIconPlus(props.mods || {}), props.className)}/>;
+    return <div className={classNames(cnIconPlus(props.mods || {}), props.className)}
+                onClick={props.onClick || null}/>;
 };
