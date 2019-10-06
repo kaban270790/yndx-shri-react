@@ -7,7 +7,9 @@ import Text from "../Text/Text.jsx";
 const cnTab = cn('Tab');
 
 export default (props) => {
-    return <div className={classNames(cnTab(), cnTab((props.isActive ? 'Active' : 'Clickable')))}>
+    return <div
+        onClick={!props.isActive ? alert.bind(this, 'Функционал в разработке') : null}
+        className={classNames(cnTab(), cnTab((props.isActive ? 'Active' : 'Clickable')))}>
         <Text mods={{
             size: 16,
             color: props.isActive ? 'black' : 'gray',
