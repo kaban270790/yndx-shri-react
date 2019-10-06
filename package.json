@@ -28,7 +28,7 @@
     "sinon": "^7.5.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests --recursive",
     "dev": "node server.js --path=../",
     "prod": "next build & next start"
   },
