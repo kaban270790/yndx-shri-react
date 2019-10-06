@@ -41,7 +41,7 @@ export default (props) => {
     };
     const popupName = 'menu-branches';
     return <div className={classNames(props.className, cnSelector())}>
-        <PopupBranch className={cnPopupMenu('Modal', {width: 'branch-menu'})} popupName={popupName}>
+        <PopupBranch className={cnPopupMenu('Modal', {width: 'branchMenu'})} popupName={popupName}>
             <div className={cnPopupBranch('Current')}>
                 <Text mods={{
                     size: 14,

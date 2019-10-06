@@ -2,6 +2,7 @@ import App from "next/app.js";
 import {Provider} from "react-redux";
 import React from "react";
 import withReduxStore from '../src/lib/with-redux-store.js';
+import {withRouter} from "next/router.js";
 
 class ArcApp extends App {
     render() {
@@ -14,4 +15,4 @@ class ArcApp extends App {
     }
 }
 
-export default withReduxStore(ArcApp);
+export default withReduxStore(withRouter(ArcApp));

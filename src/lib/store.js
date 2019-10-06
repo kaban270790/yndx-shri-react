@@ -1,5 +1,6 @@
 import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import apiMidleware from "./apiMidleware.js";
 
 const initialState = {
     time: null,
@@ -59,7 +60,7 @@ export const actionSetRepositories = (repositories) => {
         repositories
     };
 };
-export const actionSetFiles = (files) => {
+export const actionSetFiles = ({files}) => {
     return {
         type: types.SET_FILES,
         files
@@ -87,5 +88,5 @@ export const actionInitStore = () => {
 };
 
 export function initializeStore(state = initialState) {
-    return createStore(reducer, state, composeWithDevTools(applyMiddleware()))
+    return createStore(reducer, state, composeWithDevTools(applyMiddleware(apiMidleware)))
 }

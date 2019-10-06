@@ -8,8 +8,9 @@ import PopupMenu from "../PopupMenu/PopupMenu.jsx";
 import List from "../List/List.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import Text from "../Text/Text.jsx";
-import {actionSetCurrentRepository} from "../../lib/store.js";
-import Link from "next/link.js";
+import {actionSetCurrentRepository, actionSetFiles} from "../../lib/store.js";
+import Link from "next/link";
+import {useRouter} from "next/router";
 
 const cnSelector = cn('Selector');
 const cnPopupMenu = cn('PopupMenu');
@@ -22,17 +23,30 @@ export default (props) => {
             currentRepositoryName: state.currentRepository
         }
     });
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const changeRepository = useCallback(
-        (name) => dispatch(actionSetCurrentRepository(name)),
+        (name) => {
+            dispatch(actionSetCurrentRepository(name));
+            dispatch(actionSetFiles({files: []}));
+            dispatch({
+                type: 'API_REQUEST',
+                href: `/api/repos/${name}`,
+                params: {
+                    method: 'GET',
+                    mode: 'cors'
+                },
+                subAction: actionSetFiles
+            });
+        },
         [dispatch]
     );
+    const router = useRouter();
     const popupName = 'menu-repositories';
     return <div className={classNames(props.className, cnSelector())}>
-        <PopupMenu className={cnPopupMenu('Modal', {width: 'top-menu'})} popupName={popupName}>
+        <PopupMenu className={cnPopupMenu('Modal', {width: 'topMenu'})} popupName={popupName}>
             <List mods={{indentH: 22, indent: 6}}>
                 {repositories.length > 0 ? repositories.map((repos, index) =>
-                    <Link href={`/repos/${repos.name}`}>
+                    <Link href={`/fileList`} as={`/repos/${repos.name}`}>
                         <Text tag={'span'} onClick={changeRepository.bind(this, repos.name)}
                               key={index}
                               className={cnList('Item', {indentV: 8})}

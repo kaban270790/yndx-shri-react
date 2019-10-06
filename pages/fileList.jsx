@@ -18,28 +18,51 @@ class FileList extends React.Component {
         let files = [];
         if (typeof serverDataFetchFunc === 'function') {
             props = await serverDataFetchFunc();
-            await getReposList(props.reposDir).then((result) => {
-                repositories = result;
-            });
-            let reposPath = '';
-            await checkDirRepository
-                .isExist(props.reposDir, props.repositoryId)
-                .then((result) => {
-                    reposPath = result;
+            if (appContext.req) {
+                await getReposList(props.reposDir).then((result) => {
+                    repositories = result;
                 });
-            await getFileList(reposPath, props.commitHash || null, props.path || null)
-                .then((result) => {
-                    files = result;
-                });
+                let reposPath = '';
+                await checkDirRepository
+                    .isExist(props.reposDir, props.repositoryId)
+                    .then((result) => {
+                        reposPath = result;
+                    });
+                await getFileList(reposPath, props.commitHash || null, props.path || null)
+                    .then((result) => {
+                        files = result;
+                    });
+            } else {
+                {
+                    const res = await fetch(`/api/repos`, {
+                        method: 'GET',
+                        mode: 'cors'
+                    });
+                    let resJson = await res.json();
+                    repositories = resJson.repositories;
+                }
+                {
+                    const res = await fetch(`/api/repos/${props.repositoryId}`, {
+                        method: 'GET',
+                        mode: 'cors'
+                    });
+                    let resJson = await res.json();
+                    files = resJson.files;
+                }
+            }
         }
         return {repositories, files, repositoryName: props.repositoryId};
     }
 
     constructor(props) {
         super(props);
-        props.dispatch(actionSetRepositories(props.repositories));
-        props.dispatch(actionSetFiles(props.files));
-        props.dispatch(actionSetCurrentRepository(props.repositoryName));
+        this.props = props;
+    }
+
+    componentDidMount() {
+        this.props.dispatch(actionSetRepositories(this.props.repositories));
+        this.props.dispatch(actionSetFiles({files: this.props.files}));
+        this.props.dispatch(actionSetCurrentRepository(this.props.repositoryName));
     }
 
     render() {

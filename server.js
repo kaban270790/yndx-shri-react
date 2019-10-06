@@ -42,6 +42,7 @@ app.prepare()
     })
     .then((reposDir) => {
         const server = nextExpress();
+
         server.pageRoute({
             method: 'get',
             path: "/",
@@ -64,6 +65,25 @@ app.prepare()
                     path: req.params.path
                 };
             }
+        });
+
+        server.get(routes.reposList, (req, res) => {
+            getReposList(reposDir).then(repositories => {
+                res.json({repositories});
+            }).catch(error => {
+                res.status(400).end({error});
+            });
+        });
+
+        server.get([routes.filesList, routes.filesListRoot], (req, res) => {
+            checkDirRepository.isExist(reposDir, req.params.repositoryId)
+                .then(reposPath => getFileList(reposPath, req.params.commitHash || null, req.params.path || null))
+                .then(files => {
+                    res.json({files});
+                })
+                .catch(error => {
+                    res.status(400).json({error});
+                });
         });
 
         return server.listen(env.SERVER_PORT);

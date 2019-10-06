@@ -7,6 +7,7 @@ import App from "../src/components/App/App.jsx";
 import TabList from "../src/components/TabList/TabList.jsx";
 import TableMobile from "../src/components/TableMobile/TableMobile.jsx";
 import Files from "../src/components/Files/Files.jsx";
+import {withRouter} from "next/router.js";
 
 const getReposList = require('../src/server/getReposList.js');
 
@@ -16,7 +17,7 @@ class Index extends React.Component {
         props.dispatch(actionSetRepositories(props.repositories));
     }
 
-    static async getInitialProps(appContext, serverDataFetchFunc) {
+    static async getInitialProps({req}, serverDataFetchFunc) {
         let props = {};
         if (typeof serverDataFetchFunc === 'function') {
             props = await serverDataFetchFunc();
