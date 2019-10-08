@@ -50,9 +50,9 @@ export default (props) => {
         <PopupMenu className={cnPopupMenu('Modal', {width: 'topMenu'})} popupName={popupName}>
             <List mods={{indentH: 22, indent: 6}}>
                 {repositories.length > 0 ? repositories.map((repos, index) =>
-                    <Link href={`/fileList`} as={`/repos/${repos.name}`}>
+                    <Link href={`/fileList`} as={`/repos/${repos.name}`}
+                          key={index}>
                         <Text tag={'span'} onClick={changeRepository.bind(this, repos.name)}
-                              key={index}
                               className={cnList('Item', {indentV: 8})}
                               mods={{color: 'black', size: 14, lHeight: 20, underline: 'non'}}
                         >{repos.name}</Text>
