@@ -5,8 +5,17 @@ import Tab from "../Tab/Tab.js";
 
 const cnTabList = cn('TabList');
 
-export default (props) => {
-    const tabs = [
+interface Props {
+    active: string
+}
+
+type Tab = {
+    name: string,
+    text: string,
+}
+
+export default (props: Props) => {
+    const tabs: Tab[] = [
         {
             name: 'files',
             text: 'Files'
