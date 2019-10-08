@@ -27,6 +27,19 @@ export const MODS_SIZE = {
     16: 16,
     24: 24,
 };
+export const MODS_LINE_HEIGHT= {
+    13: 13,
+    15: 15,
+    18: 18,
+    20: 20,
+    28: 28,
+};
+export const MOD_MARGIN_RIGHT= {
+    3: 3,
+    8: 8,
+    16: 16,
+    24: 24,
+};
 
 export const TAG = {
     a: 'a',
@@ -36,9 +49,9 @@ export const TAG = {
 
 type Mods = {
     size: keyof typeof MODS_SIZE;
-    lHeight: 13 | 15 | 18 | 20 | 28;
+    lHeight: keyof typeof MODS_LINE_HEIGHT;
     width: keyof typeof MODS_WIDTH;
-    marginR: 3 | 8 | 16 | 24;
+    marginR: keyof typeof MOD_MARGIN_RIGHT;
     color: keyof typeof MODS_COLOR;
     underline: 'non';
     transform: 'uppercase';
