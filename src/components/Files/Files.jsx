@@ -4,7 +4,7 @@ import Table from "../Table/Table.jsx";
 import TableTHead from "../Table/TableTHead.jsx";
 import TableRow from "../Table/TableRow.jsx";
 import TableCell from "../Table/TableCell.jsx";
-import Text from "../Text/Text.jsx";
+import Text from "../Text/Text.tsx";
 import TableTBody from "../Table/TableTBody.jsx";
 import moment from "moment";
 import IconPlus from "../IconPlus/IconPlus.jsx";

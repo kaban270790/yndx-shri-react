@@ -1,7 +1,7 @@
 import './Branch.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
-import Text from "../Text/Text.jsx";
+import Text from "../Text/Text.tsx";
 import moment from "moment";
 import SelectorBranch from "../Selector/SelectorBranch.jsx";
 import {useSelector} from "react-redux";

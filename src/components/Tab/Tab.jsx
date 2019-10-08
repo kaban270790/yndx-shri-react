@@ -2,7 +2,7 @@ import './Tab.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
-import Text from "../Text/Text.jsx";
+import Text from "../Text/Text.tsx";
 
 const cnTab = cn('Tab');
 

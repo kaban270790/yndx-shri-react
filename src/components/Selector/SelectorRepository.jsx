@@ -7,7 +7,7 @@ import {classnames as classNames} from "@bem-react/classnames";
 import PopupMenu from "../PopupMenu/PopupMenu.jsx";
 import List from "../List/List.jsx";
 import {useSelector, useDispatch} from "react-redux";
-import Text from "../Text/Text.jsx";
+import Text from "../Text/Text.tsx";
 import {
     actionApiRequest, actionSetCurrentHash,
     actionSetCurrentRepository,

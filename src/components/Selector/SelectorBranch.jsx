@@ -7,7 +7,7 @@ import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
 import PopupMenu from "../PopupMenu/PopupMenu.jsx";
 import List from "../List/List.jsx";
-import Text from "../Text/Text.jsx";
+import Text from "../Text/Text.tsx";
 import PopupBranch from "../PopupBranch/PopupBranch.jsx";
 import moment from "moment";
 

@@ -1,7 +1,7 @@
 import './BreadCrumb.scss';
 import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
-import Text from "../Text/Text.jsx";
+import Text from "../Text/Text.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
 import Link from "next/link.js";
