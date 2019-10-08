@@ -7,8 +7,13 @@ import Text from "../Text/Text.jsx";
 const cnTab = cn('Tab');
 
 export default (props) => {
+    const clickHandler = () => {
+        if (props.isActive && alert) {
+            alert('Функционал в разработке');
+        }
+    };
     return <div
-        onClick={!props.isActive ? alert.bind(this, 'Функционал в разработке') : null}
+        onClick={clickHandler}
         className={classNames(cnTab(), cnTab((props.isActive ? 'Active' : 'Clickable')))}>
         <Text mods={{
             size: 16,
