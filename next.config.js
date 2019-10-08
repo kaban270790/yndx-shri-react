@@ -44,6 +44,11 @@ module.exports = withSass(
                             }
                         ]
                     });
+                config.module.rules.push(
+                    {
+                        test: /(\.tsx?)$/,
+                        loader: 'awesome-typescript-loader'
+                    });
                 HACK_removeMinimizeOptionFromCssLoaders(config);
                 return config;
             }

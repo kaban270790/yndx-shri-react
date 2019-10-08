@@ -22,7 +22,12 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^12.7.11",
+    "@types/react": "^16.9.5",
+    "awesome-typescript-loader": "^5.2.1",
+    "typescript": "^3.6.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node server.js --path=../",
