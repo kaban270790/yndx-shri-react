@@ -1,7 +1,7 @@
 import './TabList.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
-import Tab from "../Tab/Tab.jsx";
+import Tab from "../Tab/Tab.js";
 
 const cnTabList = cn('TabList');
 
