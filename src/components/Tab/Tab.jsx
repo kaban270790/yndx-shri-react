@@ -8,7 +8,7 @@ const cnTab = cn('Tab');
 
 export default (props) => {
     const clickHandler = () => {
-        if (props.isActive && alert) {
+        if (!props.isActive && alert) {
             alert('Функционал в разработке');
         }
     };
