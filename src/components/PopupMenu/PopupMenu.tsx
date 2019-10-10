@@ -1,9 +1,16 @@
 import './PopupMenu.scss';
-import React from "react";
+import React, {ReactChildren} from "react";
 import {cn} from "@bem-react/classname";
 
 const cnPopupMenu = cn('PopupMenu');
-export default (props) => {
+
+interface Props {
+    className?: string,
+    popupName: string,
+    children: ReactChildren
+}
+
+export default (props: Props) => {
     return <div id={props.popupName} className={cnPopupMenu()}>
         <a href="#" className={cnPopupMenu('Overlay')}/>
         <div className={props.className}>

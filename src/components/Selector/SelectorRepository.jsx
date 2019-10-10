@@ -4,7 +4,7 @@ import './../List/List.scss';
 import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
-import PopupMenu from "../PopupMenu/PopupMenu.jsx";
+import PopupMenu from "../PopupMenu/PopupMenu";
 import List from "../List/List";
 import {useSelector, useDispatch} from "react-redux";
 import Text from "../Text/Text.tsx";

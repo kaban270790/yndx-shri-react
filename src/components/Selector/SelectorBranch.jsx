@@ -5,10 +5,10 @@ import './../List/List.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
-import PopupMenu from "../PopupMenu/PopupMenu.jsx";
+import PopupMenu from "../PopupMenu/PopupMenu";
 import List from "../List/List";
 import Text from "../Text/Text.tsx";
-import PopupBranch from "../PopupBranch/PopupBranch.js";
+import PopupBranch from "../PopupBranch/PopupBranch";
 import moment from "moment";
 
 const cnSelector = cn('Selector');
