@@ -17,7 +17,7 @@ export default () => {
             &copy; 2017 - 2019
         </Text>
         <Text tag={'a'} href={"https://ya.ru"} className={cnFooter('YandexLink')}
-              mods={{...textMods, underline: 'non', color: 'link'}}>
+              mods={{underline: 'non', color: 'link', ...textMods}}>
             Yandex
         </Text>
     </div>;
