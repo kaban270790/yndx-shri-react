@@ -4,7 +4,7 @@ import '../IconNav/IconNav.scss';
 import '../IconFile/IconFile.scss';
 import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
-import List from "../List/List.jsx";
+import List from "../List/List";
 import ListItem from "../List/List-Item.jsx";
 import IconPlus from "../IconPlus/IconPlus.jsx";
 import IconPlusIcon from '../IconPlus/IconPlus-Icon.jsx';
