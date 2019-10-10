@@ -3,7 +3,6 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import apiMidleware from "./apiMidleware.js";
 
 const initialState = {
-    time: null,
     repositories: [],
     files: [],
     currentRepository: '',
@@ -13,7 +12,6 @@ const initialState = {
 };
 export const types = {
     INIT: '@@init',
-    TICK: 'TICK',
     TIME_CREATE: 'TIME_CREATE',
     SET_REPOSITORIES: 'SET_REPOSITORIES',
     SET_FILES: 'SET_FILES',
@@ -27,11 +25,6 @@ export const types = {
  */
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.TICK:
-        case types.TIME_CREATE:
-            return Object.assign({}, state, {
-                time: action.time,
-            });
         case types.SET_REPOSITORIES:
             return Object.assign({}, state, {
                 repositories: action.repositories
@@ -53,12 +46,6 @@ export const reducer = (state = initialState, action) => {
     }
 };
 
-export const actionTick = () => {
-    return {
-        type: types.TICK,
-        time: Date.now()
-    };
-};
 export const actionSetRepositories = (repositories) => {
     return {
         type: types.SET_REPOSITORIES,
