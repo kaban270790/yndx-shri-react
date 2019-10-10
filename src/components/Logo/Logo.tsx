@@ -5,6 +5,10 @@ import {classnames as classNames} from "@bem-react/classnames";
 
 const cnLogo = cn('Logo');
 
-export default (props) => {
+interface Props {
+    className?: string
+}
+
+export default (props: Props) => {
     return <div className={classNames(props.className, cnLogo())}/>;
 };
