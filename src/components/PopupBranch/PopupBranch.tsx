@@ -1,6 +1,6 @@
 import './PopupBranch.scss';
 import '../PopupMenu/PopupMenu.scss';
-import React, {ReactChildren} from "react";
+import React, {ReactNode} from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
 
@@ -10,7 +10,7 @@ const cnPopupMenu = cn('PopupMenu');
 interface Props {
     className?: string,
     popupName: string,
-    children: ReactChildren
+    children: ReactNode
 }
 
 export default (props: Props) => {

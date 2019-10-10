@@ -3,7 +3,7 @@ import React from "react";
 import {cn} from "@bem-react/classname";
 import Text from "../Text/Text.tsx";
 import moment from "moment";
-import SelectorBranch from "../Selector/SelectorBranch.jsx";
+import SelectorBranch from "../Selector/SelectorBranch";
 import {useSelector} from "react-redux";
 
 const cnBranch = cn('Branch');
