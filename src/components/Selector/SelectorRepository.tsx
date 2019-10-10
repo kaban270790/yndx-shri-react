@@ -1,27 +1,30 @@
 import './Selector.scss';
 import './../PopupMenu/PopupMenu.scss';
 import './../List/List.scss';
-import React, {useCallback} from "react";
+import React, {ComponentState, useCallback} from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
 import PopupMenu from "../PopupMenu/PopupMenu";
 import List from "../List/List";
-import {useSelector, useDispatch} from "react-redux";
-import Text from "../Text/Text.tsx";
-import {
-    actionApiRequest, actionSetCurrentHash,
-    actionSetCurrentRepository,
-    actionSetFiles
-} from "../../lib/store.js";
+import {useDispatch, useSelector} from "react-redux";
+import Text from "../Text/Text";
+import {actionApiRequest, actionSetCurrentRepository, actionSetFiles} from "../../lib/store";
 import Link from "next/link";
-import {useRouter} from "next/router";
 
 const cnSelector = cn('Selector');
 const cnPopupMenu = cn('PopupMenu');
 const cnList = cn('List');
 
-export default (props) => {
-    const {repositories, currentRepositoryName, breadCrumbs} = useSelector((state) => {
+interface Props {
+    className?: string,
+}
+
+type Repository = { //todo потом отсюда выпилить
+    name: string
+}
+
+export default (props: Props) => {
+    const {repositories, currentRepositoryName, breadCrumbs} = useSelector((state: ComponentState) => {
         return {
             repositories: state.repositories || {},
             currentRepositoryName: state.currentRepository,
@@ -46,12 +49,11 @@ export default (props) => {
         },
         [dispatch]
     );
-    const router = useRouter();
     const popupName = 'menu-repositories';
     return <div className={classNames(props.className, cnSelector())}>
         <PopupMenu className={cnPopupMenu('Modal', {width: 'topMenu'})} popupName={popupName}>
-            <List mods={{indentH: 22, indent: 6}}>
-                {repositories.length > 0 ? repositories.map((repos, index) =>
+            <List mods={{indentH: 22, indentV: 6}}>
+                {repositories.length > 0 ? repositories.map((repos: Repository, index: number) =>
                     <Link href={`/fileList`} as={`/repos/${repos.name}`}
                           key={index}>
                         <Text tag={'span'} onClick={changeRepository.bind(null, repos)}
