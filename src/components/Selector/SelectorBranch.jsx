@@ -8,7 +8,7 @@ import {classnames as classNames} from "@bem-react/classnames";
 import PopupMenu from "../PopupMenu/PopupMenu.jsx";
 import List from "../List/List";
 import Text from "../Text/Text.tsx";
-import PopupBranch from "../PopupBranch/PopupBranch.jsx";
+import PopupBranch from "../PopupBranch/PopupBranch.js";
 import moment from "moment";
 
 const cnSelector = cn('Selector');
