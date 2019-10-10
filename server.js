@@ -3,15 +3,9 @@ const next = require("next");
 const {argv} = require('yargs');
 const fs = require('fs');
 const {resolve: pathResolve} = require('path');
-const bodyParser = require('body-parser');
 const routes = require('./src/server/routes.json');
-const getCommits = require('./src/server/git/getCommit.js');
-const getDiff = require('./src/server/git/getDiff.js');
 const getReposList = require('./src/server/getReposList.js');
 const getFileList = require('./src/server/git/getFileList.js');
-const getFileBlob = require('./src/server/git/getFileBlob.js');
-const gitClone = require('./src/server/git/clone.js');
-const removeRepos = require('./src/server/removeRepos.js');
 const env = require('./src/server/env.js');
 const checkDirRepository = require('./src/server/checkDirRepository.js');
 
