@@ -6,7 +6,7 @@ import SelectorRepository from "../Selector/SelectorRepository";
 
 const cnHeader = cn('Header');
 
-export default (props) => {
+export default () => {
     return <div className={cnHeader()}>
         <Logo className={cnHeader('Logo')}/>
         <SelectorRepository className={cnHeader('RepositorySelector')}/>
