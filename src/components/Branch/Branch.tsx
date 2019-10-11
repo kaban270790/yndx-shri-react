@@ -1,15 +1,22 @@
 import './Branch.scss';
-import React from "react";
+import React, {ComponentState} from "react";
 import {cn} from "@bem-react/classname";
-import Text from "../Text/Text.tsx";
+import Text from "../Text/Text";
 import moment from "moment";
 import SelectorBranch from "../Selector/SelectorBranch";
 import {useSelector} from "react-redux";
 
 const cnBranch = cn('Branch');
-
-export default (props) => {
-    const {currentRepositoryName, repositories} = useSelector((state) => {
+type Branch = { //todo Выпилить от сюда в общее место
+    lastCommit: Commit
+};
+type Commit = { //todo Выпилить от сюда в общее место
+    hash: string,
+    ts: number,
+    committer: string
+};
+export default () => {
+    const {currentRepositoryName, repositories} = useSelector((state: ComponentState) => {
         return {
             currentRepositoryName: state.currentRepository,
             repositories: state.repositories
@@ -28,8 +35,7 @@ export default (props) => {
                 size: 24,
                 lHeight: 28
             }}>{currentRepositoryName}</Text>
-            <SelectorBranch className={cnBranch('BranchName')}>
-            </SelectorBranch>
+            <SelectorBranch className={cnBranch('BranchName')}/>
         </div>
         <div className={cnBranch('LastCommit')}>
             <Text tag={'span'} mods={{
