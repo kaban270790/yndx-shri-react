@@ -9,7 +9,7 @@ module.exports = (reposDir, params) => {
     params = params || {};
     return (new Promise((resolve, reject) => {
         const commitDelimiter = '-----';
-        const format = [commitDelimiter, '%H', '%at', '%s'].join('%n');
+        const format = [commitDelimiter, '%H', '%cn', '%at', '%s'].join('%n');
         let options = [
             'log',
             `--format=${format}`,
@@ -37,9 +37,10 @@ module.exports = (reposDir, params) => {
                 .map(value => {
                     let commitData = value.trim().split("\n");
                     let hash = commitData.shift();
+                    let committer = commitData.shift();
                     let timestamp = commitData.shift();
                     let source = commitData.join("/n");
-                    return {hash, timestamp, source};
+                    return {hash, committer, timestamp, source};
                 });
             resolve(commits);
         });
