@@ -22,9 +22,13 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1",
+    "sinon": "^7.5.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests --recursive",
     "dev": "node server.js --path=../",
     "prod": "next build & next start"
   },

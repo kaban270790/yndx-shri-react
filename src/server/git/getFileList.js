@@ -1,4 +1,4 @@
-const {execFile} = require('child_process');
+const childProcess = require('child_process');
 
 module.exports = (reposDir, commitHash, path) => {
     let options = [
@@ -10,7 +10,7 @@ module.exports = (reposDir, commitHash, path) => {
         options.push(`${path}/`);
     }
     return (new Promise((resolve, reject) => {
-        execFile('git', options, {cwd: reposDir}, (err, data, errMess) => {
+        childProcess.execFile('git', options, {cwd: reposDir}, (err, data, errMess) => {
             if (err && errMess) {
                 reject(errMess);
             }
