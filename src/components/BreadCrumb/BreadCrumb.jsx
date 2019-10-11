@@ -9,13 +9,14 @@ import Link from "next/link.js";
 const cnBreadCrumb = cn('BreadCrumb');
 
 export default (props) => {
-    const {currentPath, currentRepositoryName, currentHash} = useSelector((state) => {
+    const {currentPath, currentRepositoryName, repositories, currentHash} = useSelector((state) => {
         return {
             currentPath: state.currentPath || '',
             currentRepositoryName: state.currentRepository,
             currentHash: state.currentHash
         }
     });
+    console.log(currentHash);
     const textMods = {
         lHeight: 20,
         size: 14,
@@ -68,7 +69,6 @@ export default (props) => {
                     })
                 });
         }
-        console.log(breadCrumbs);
     }
     return <div className={cnBreadCrumb({borderB: true})}>
         {breadCrumbs.length > 0 ? breadCrumbs.map((crumb, index) => {

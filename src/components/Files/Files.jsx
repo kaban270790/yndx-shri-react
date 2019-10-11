@@ -42,10 +42,17 @@ const modsTd = {
 };
 
 export default (props) => {
-    const {files, currentRepositoryName} = useSelector((state) => ({
+    const {files, repositories, currentRepositoryName} = useSelector((state) => ({
         files: state.files || {},
+        repositories: state.repositories,
         currentRepositoryName: state.currentRepository
     }));
+    let commit = {};
+    repositories.forEach((repository) => {//todo переделать что бы хранить активный репозиторий как он есть в стэйте или метод для получения этого
+        if (repository.name === currentRepositoryName) {
+            commit = repository.lastCommit;
+        }
+    });
 
     const dispatch = useDispatch();
     const openDir = useCallback(
@@ -95,7 +102,8 @@ export default (props) => {
             </TableTHead>
             <TableTBody>
                 {files.length > 0 ? files.map((file, index) => {
-                    const url = `/repos/${currentRepositoryName}/tree/${file.lastCommit.hash}/${file.fullPath}`;
+                    // console.log(file);
+                    const url = `/repos/${currentRepositoryName}/tree/${commit.hash}/${file.fullPath}`;
                     return (
                         <TableRow key={index}>
                             <TableCell mods={{...modsTd, width: 2}}>
@@ -110,7 +118,7 @@ export default (props) => {
                                     {file.ext === 'folder' ?
                                         <Link href={`/fileList`} as={url}>
                                             <Text tag={'span'}
-                                                  onClick={openDir.bind(this, currentRepositoryName, file.lastCommit.hash, file.fullPath)}
+                                                  onClick={openDir.bind(this, currentRepositoryName, commit.hash, file.fullPath)}
                                                   mods={{
                                                       ...modsTdText,
                                                       width: 'bold',

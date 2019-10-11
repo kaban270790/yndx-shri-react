@@ -30,18 +30,12 @@ export default (props) => {
     });
     const dispatch = useDispatch();
     const changeRepository = useCallback(
-        (name) => {
-            dispatch(actionSetCurrentRepository(name));
-            let commit = {};
-            repositories.forEach((repository) => {//todo переделать что бы хранить активный репозиторий как он есть в стэйте или метод для получения этого
-                if (repository.name === currentRepositoryName) {
-                    commit = repository.lastCommit;
-                }
-            });
-            dispatch(actionSetCurrentHash(commit.hash));
+        (repository) => {
+            dispatch(actionSetCurrentRepository(repository.name));
+            dispatch(actionSetCurrentHash(repository.lastCommit.hash));
             dispatch(actionSetFiles({files: []}));
             dispatch(actionApiRequest(
-                `/api/repos/${name}`,
+                `/api/repos/${repository.name}`,
                 {
                     method: 'GET',
                     mode: 'cors'
@@ -59,7 +53,7 @@ export default (props) => {
                 {repositories.length > 0 ? repositories.map((repos, index) =>
                     <Link href={`/fileList`} as={`/repos/${repos.name}`}
                           key={index}>
-                        <Text tag={'span'} onClick={changeRepository.bind(this, repos.name)}
+                        <Text tag={'span'} onClick={changeRepository.bind(null, repos)}
                               className={cnList('Item', {indentV: 8})}
                               mods={{color: 'black', size: 14, lHeight: 20, underline: 'non'}}
                         >{repos.name}</Text>

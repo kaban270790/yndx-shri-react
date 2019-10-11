@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    actionSetCurrentHash,
     actionSetCurrentPath,
     actionSetCurrentRepository,
     actionSetFiles,
@@ -17,6 +18,11 @@ const getReposList = require('../src/server/getReposList.js');
 const checkDirRepository = require('../src/server/checkDirRepository.js');
 
 class FileList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props = props;
+    }
+
     static async getInitialProps(appContext, serverDataFetchFunc) {
         let props = {};
         let repositories = [];
@@ -59,15 +65,17 @@ class FileList extends React.Component {
         return {repositories, files, repositoryName: props.repositoryId, currentPath: props.path || ''};
     }
 
-    constructor(props) {
-        super(props);
-        this.props = props;
-    }
-
     componentDidMount() {
         this.props.dispatch(actionSetRepositories(this.props.repositories));
         this.props.dispatch(actionSetFiles({files: this.props.files}));
         this.props.dispatch(actionSetCurrentRepository(this.props.repositoryName));
+        let commit = {};
+        this.props.repositories.forEach((repository) => {//todo переделать что бы хранить активный репозиторий как он есть в стэйте или метод для получения этого
+            if (repository.name === this.props.repositoryName) {
+                commit = repository.lastCommit;
+            }
+        });
+        this.props.dispatch(actionSetCurrentHash(commit.hash));
         this.props.dispatch(actionSetCurrentPath(this.props.currentPath));
     }
 

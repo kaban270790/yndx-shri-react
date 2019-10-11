@@ -71,7 +71,7 @@ export const actionSetCurrentRepository = (repository) => {
 };
 export const actionSetCurrentHash = (hash) => {
     return {
-        type: types.SET_CURRENT_REPOSITORY,
+        type: types.SET_CURRENT_HASH,
         hash,
     };
 };
