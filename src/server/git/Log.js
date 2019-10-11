@@ -38,7 +38,7 @@ module.exports = (reposDir, params) => {
                     let commitData = value.trim().split("\n");
                     let hash = commitData.shift();
                     let committer = commitData.shift();
-                    let timestamp = commitData.shift();
+                    let timestamp = (commitData.shift())*1000;
                     let source = commitData.join("/n");
                     return {hash, committer, timestamp, source};
                 });
