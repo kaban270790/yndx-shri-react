@@ -9,18 +9,18 @@ import {useSelector} from "react-redux";
 const cnBranch = cn('Branch');
 
 export default (props) => {
-    const {currentRepositoryName} = useSelector((state) => {
+    const {currentRepositoryName, repositories} = useSelector((state) => {
         return {
-            currentRepositoryName: state.currentRepository
+            currentRepositoryName: state.currentRepository,
+            repositories: state.repositories
         }
     });
-    const branch = {
-        lastCommit: {
-            hash: 'sadjdhfbjdfbjkxjsndhjfdjakshdsnfkjsnjkd',
-            ts: Date.now(),
-            committer: 'robot-shri-releaser'
+    let commit = {};
+    repositories.forEach((repository) => {//todo переделать что бы хранить активный репозиторий как он есть в стэйте или метод для получения этого
+        if (repository.name === currentRepositoryName) {
+            commit = repository.lastCommit;
         }
-    };
+    });
     return <div className={cnBranch()}>
         <div className={cnBranch('Header')}>
             <Text className={cnBranch('RepositoryName')} mods={{
@@ -40,14 +40,14 @@ export default (props) => {
                 tag={'a'}
                 href={'#'}
                 mods={{color: 'link', underline: 'non'}}
-            >{branch.lastCommit.hash.slice(0, 6)}</Text> on <Text
+            >{commit.hash.slice(0, 6)}</Text> on <Text
                 tag={'a'}
                 href={'#'}
                 mods={{color: 'link', underline: 'non'}}
-            >{moment(branch.lastCommit.ts).format('lll')}</Text> by <Text
+            >{moment(commit.timestamp).format('lll')}</Text> by <Text
                 tag={'span'}
                 elem={'FirstSymbol'}
-            >{branch.lastCommit.committer.slice(0, 1)}</Text>{branch.lastCommit.committer.slice(1)}
+            >{commit.committer.slice(0, 1)}</Text>{commit.committer.slice(1)}
             </Text>
         </div>
     </div>;

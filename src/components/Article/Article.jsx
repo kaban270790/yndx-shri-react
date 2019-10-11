@@ -3,13 +3,21 @@ import React from "react";
 import {cn} from "@bem-react/classname";
 import BreadCrumb from "../BreadCrumb/BreadCrumb.jsx";
 import Branch from "../Branch/Branch.jsx";
+import {useSelector} from "react-redux";
 
 const cnArticle = cn('Article');
 
 export default (props) => {
+    const {currentRepositoryName} = useSelector((state) => {
+        return {
+            currentRepositoryName: state.currentRepository,
+        }
+    });
     return <div className={cnArticle()}>
-        <BreadCrumb/>
-        <Branch/>
+        {currentRepositoryName ? <>
+            <BreadCrumb/>
+            <Branch/>
+        </> : null}
         {props.children}
     </div>;
 };
