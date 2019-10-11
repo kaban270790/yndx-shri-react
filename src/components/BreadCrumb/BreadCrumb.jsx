@@ -16,7 +16,6 @@ export default (props) => {
             currentHash: state.currentHash
         }
     });
-    console.log(currentHash);
     const textMods = {
         lHeight: 20,
         size: 14,

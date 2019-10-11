@@ -51,6 +51,12 @@ export default (props) => {
     return <List mods={{displayPc: 'none'}} className={cnTableMobile()}>
         {files.length > 0 ? files.map((file, index) => {
             const url = `/repos/${currentRepositoryName}/tree/${commit.hash}/${file.fullPath}`;
+            const {timestamp, hash, committer, source} = file.lastCommit || {
+                timestamp: null,
+                hash: null,
+                committer: null,
+                source: null,
+            };
             return <ListItem
                 key={index}
                 mods={{indentV: 5, borderB: 'gray'}}
@@ -81,7 +87,7 @@ export default (props) => {
                                     size: 14,
                                     lHeight: 20,
                                     color: 'black'
-                                }}>{file.lastCommit.message}</Text>
+                                }}>{source || ''}</Text>
                             </ListItem>
                             <ListItem mods={{indentV: 5}}>
                                 <Text
@@ -94,7 +100,7 @@ export default (props) => {
                                     <Text tag={'a'} href={'#'} mods={{
                                         underline: 'non',
                                         color: 'link'
-                                    }}>{file.lastCommit.hash.slice(0, 6)}</Text> by {file.lastCommit.committer}, {moment(file.lastCommit.ts).fromNow()}
+                                    }}>{hash ? hash.slice(0, 6) : ''}</Text> by {committer || ''}, {timestamp ? moment(timestamp).fromNow() : ''}
                                 </Text>
                             </ListItem>
                         </List>

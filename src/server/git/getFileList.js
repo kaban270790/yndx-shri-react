@@ -1,5 +1,5 @@
 const {execFile} = require('child_process');
-
+const gitLog = require('./Log.js');
 module.exports = (reposDir, commitHash, path) => {
     let options = [
         'ls-tree',
@@ -31,12 +31,6 @@ module.exports = (reposDir, commitHash, path) => {
                         ext: ext,
                         name: clearPath(pathFile),
                         fullPath: pathFile,
-                        lastCommit: {
-                            ts: Date.now(),
-                            hash: '5abbbdc591dc90bb077c454c0623162ab244cf8e',
-                            committer: 'user',
-                            message: 'message'
-                        },
                     };
                 }).sort((a, b) => {
                     if (a.ext === 'folder' && b !== 'folder') {
@@ -49,5 +43,15 @@ module.exports = (reposDir, commitHash, path) => {
                 });
             resolve(fileList);
         });
-    }));
+    })).then(async (files) => {
+        for (let i = 0, l = files.length; i < l; i++) {
+            await gitLog(reposDir, {
+                pageLimit: 1,
+                path: files[i].fullPath
+            }).then(commits => {
+                files[i].lastCommit = commits.shift();
+            });
+        }
+        return files;
+    });
 };

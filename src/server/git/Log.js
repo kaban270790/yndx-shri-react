@@ -26,7 +26,6 @@ module.exports = (reposDir, params) => {
         if (params.path) {
             options.push(params.path);
         }
-
         execFile('git', options, {cwd: reposDir}, (err, data, errMess) => {
             if (err && errMess) {
                 reject(errMess);
@@ -39,7 +38,7 @@ module.exports = (reposDir, params) => {
                     let hash = commitData.shift();
                     let committer = commitData.shift();
                     let timestamp = (commitData.shift())*1000;
-                    let source = commitData.join("/n");
+                    let source = commitData.join("\n");
                     return {hash, committer, timestamp, source};
                 });
             resolve(commits);

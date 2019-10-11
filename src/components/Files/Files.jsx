@@ -104,6 +104,12 @@ export default (props) => {
                 {files.length > 0 ? files.map((file, index) => {
                     // console.log(file);
                     const url = `/repos/${currentRepositoryName}/tree/${commit.hash}/${file.fullPath}`;
+                    const {timestamp, hash, committer, source} = file.lastCommit || {
+                        timestamp: null,
+                        hash: null,
+                        committer: null,
+                        source: null,
+                    };
                     return (
                         <TableRow key={index}>
                             <TableCell mods={{...modsTd, width: 2}}>
@@ -135,26 +141,28 @@ export default (props) => {
                             </TableCell>
                             <TableCell mods={{...modsTd, width: 2}}>
                                 <Text tag={'a'} href={'#'} mods={{...modsTdText, underline: 'non', color: 'link'}}>
-                                    {file.lastCommit.hash.slice(0, 6)}
+                                    {hash ? hash.slice(0, 6) : ''}
                                 </Text>
                             </TableCell>
                             <TableCell mods={{...modsTd, width: 4}}>
                                 <Text tag={'span'} mods={modsTdText}>
-                                    {file.lastCommit.message}
+                                    {source || ''}
                                 </Text>
                             </TableCell>
                             <TableCell mods={{...modsTd, width: 2}}>
                                 <Text tag={'span'} mods={modsTdText}>
-                                    <Text tag={"span"}
-                                          elem={'FirstSymbol'}>
-                                        {file.lastCommit.committer.slice(0, 1)}
-                                    </Text>
-                                    {file.lastCommit.committer.slice(1)}
+                                    {committer ? <>
+                                        <Text tag={"span"}
+                                              elem={'FirstSymbol'}>
+                                            {committer.slice(0, 1)}
+                                        </Text>
+                                        {committer.slice(1)}
+                                    </> : null}
                                 </Text>
                             </TableCell>
                             <TableCell mods={{...modsTd, width: 2, align: 'right'}}>
                                 <Text tag={'span'} mods={modsTdText}>
-                                    {moment(file.lastCommit.ts).fromNow()}
+                                    {timestamp?moment(timestamp).fromNow() : ''}
                                 </Text>
                             </TableCell>
                         </TableRow>
