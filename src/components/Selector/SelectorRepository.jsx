@@ -9,7 +9,7 @@ import List from "../List/List.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import Text from "../Text/Text.jsx";
 import {
-    actionApiRequest, actionSetBreadCrumb,
+    actionApiRequest, actionSetCurrentHash,
     actionSetCurrentRepository,
     actionSetFiles
 } from "../../lib/store.js";
@@ -32,6 +32,13 @@ export default (props) => {
     const changeRepository = useCallback(
         (name) => {
             dispatch(actionSetCurrentRepository(name));
+            let commit = {};
+            repositories.forEach((repository) => {//todo переделать что бы хранить активный репозиторий как он есть в стэйте или метод для получения этого
+                if (repository.name === currentRepositoryName) {
+                    commit = repository.lastCommit;
+                }
+            });
+            dispatch(actionSetCurrentHash(commit.hash));
             dispatch(actionSetFiles({files: []}));
             dispatch(actionApiRequest(
                 `/api/repos/${name}`,

@@ -7,7 +7,7 @@ const initialState = {
     files: [],
     currentRepository: '',
     url: '',
-    currentHash: '5abbbdc591dc90bb077c454c0623162ab244cf8e',
+    currentHash: '',
     currentPath: ''
 };
 export const types = {
@@ -16,6 +16,7 @@ export const types = {
     SET_REPOSITORIES: 'SET_REPOSITORIES',
     SET_FILES: 'SET_FILES',
     SET_CURRENT_REPOSITORY: 'SET_CURRENT_REPOSITORY',
+    SET_CURRENT_HASH: 'SET_CURRENT_HASH',
     API_REQUEST: 'API_REQUEST',
     SET_CURRENT_PATH: 'SET_CURRENT_PATH',
 };
@@ -36,6 +37,10 @@ export const reducer = (state = initialState, action) => {
         case types.SET_CURRENT_REPOSITORY:
             return Object.assign({}, state, {
                 currentRepository: action.currentRepository,
+            });
+        case types.SET_CURRENT_HASH:
+            return Object.assign({}, state, {
+                currentHash: action.hash,
             });
         case types.SET_CURRENT_PATH:
             return Object.assign({}, state, {
@@ -62,6 +67,12 @@ export const actionSetCurrentRepository = (repository) => {
     return {
         type: types.SET_CURRENT_REPOSITORY,
         currentRepository: repository,
+    };
+};
+export const actionSetCurrentHash = (hash) => {
+    return {
+        type: types.SET_CURRENT_REPOSITORY,
+        hash,
     };
 };
 export const actionApiRequest = (href, params, subAction) => {
