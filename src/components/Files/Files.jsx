@@ -9,7 +9,7 @@ import TableTBody from "../Table/TableTBody.jsx";
 import moment from "moment";
 import IconPlus from "../IconPlus/IconPlus.jsx";
 import IconPlusIcon from "../IconPlus/IconPlus-Icon.jsx";
-import IconPlusText from "../IconPlus/IconPlus-Text.jsx";
+import IconPlusText from "../IconPlus/IconPlus-Text";
 import '../IconFile/IconFile.scss';
 import {useDispatch, useSelector} from "react-redux";
 import Link from "next/link.js";

@@ -8,7 +8,7 @@ import List from "../List/List";
 import ListItem from "../List/List-Item.jsx";
 import IconPlus from "../IconPlus/IconPlus.jsx";
 import IconPlusIcon from '../IconPlus/IconPlus-Icon.jsx';
-import IconPlusText from '../IconPlus/IconPlus-Text.jsx';
+import IconPlusText from '../IconPlus/IconPlus-Text';
 import Text from "../Text/Text.tsx";
 import moment from "moment";
 import {useDispatch, useSelector} from "react-redux";
