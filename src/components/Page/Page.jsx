@@ -3,7 +3,7 @@ import React from "react";
 import {cn} from "@bem-react/classname";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import Article from "../Article/Article.jsx";
+import Article from "../Article/Article";
 
 const cnPage = cn('Page');
 

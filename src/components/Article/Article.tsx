@@ -1,5 +1,5 @@
 import './Article.scss';
-import React from "react";
+import React, {ComponentState} from "react";
 import {cn} from "@bem-react/classname";
 import BreadCrumb from "../BreadCrumb/BreadCrumb.jsx";
 import Branch from "../Branch/Branch";
@@ -7,8 +7,12 @@ import {useSelector} from "react-redux";
 
 const cnArticle = cn('Article');
 
-export default (props) => {
-    const {currentRepositoryName} = useSelector((state) => {
+interface Props {
+    children: React.ReactNode;
+}
+
+export default (props: Props) => {
+    const {currentRepositoryName} = useSelector((state: ComponentState) => {
         return {
             currentRepositoryName: state.currentRepository,
         }
