@@ -13,7 +13,7 @@ import IconPlusText from "../IconPlus/IconPlus-Text";
 import '../IconFile/IconFile.scss';
 import {useDispatch, useSelector} from "react-redux";
 import Link from "next/link.js";
-import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
+import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store";
 
 const cnIconFile = cn('IconFile');
 

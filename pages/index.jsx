@@ -1,5 +1,5 @@
 import React from "react";
-import {actionSetRepositories} from "../src/lib/store.js";
+import {actionSetRepositories} from "../src/lib/store";
 import {connect} from "react-redux";
 import nextExpressPage from "next-express/page";
 import App from "../src/components/App/App";

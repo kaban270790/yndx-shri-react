@@ -13,7 +13,7 @@ import Text from "../Text/Text.tsx";
 import moment from "moment";
 import {useDispatch, useSelector} from "react-redux";
 import Link from "next/link.js";
-import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
+import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store";
 
 const cnTableMobile = cn('TableMobile');
 const cnIconNav = cn('IconNav');

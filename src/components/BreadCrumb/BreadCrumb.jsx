@@ -3,7 +3,7 @@ import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
 import Text from "../Text/Text.tsx";
 import {useDispatch, useSelector} from "react-redux";
-import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
+import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store";
 import Link from "next/link.js";
 
 const cnBreadCrumb = cn('BreadCrumb');

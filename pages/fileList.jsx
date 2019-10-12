@@ -5,7 +5,7 @@ import {
     actionSetCurrentRepository,
     actionSetFiles,
     actionSetRepositories
-} from "../src/lib/store.js";
+} from "../src/lib/store";
 import {connect} from "react-redux";
 import nextExpressPage from "next-express/page";
 import App from "../src/components/App/App";

@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head.js";
 import Page from "../Page/Page"
+import {Store} from "redux";
 
 interface Props {
     title?: string;
