@@ -1,7 +1,7 @@
 import './Article.scss';
 import React, {ComponentState} from "react";
 import {cn} from "@bem-react/classname";
-import BreadCrumb from "../BreadCrumb/BreadCrumb.jsx";
+import BreadCrumb from "../BreadCrumb/BreadCrumb";
 import Branch from "../Branch/Branch";
 import {useSelector} from "react-redux";
 
