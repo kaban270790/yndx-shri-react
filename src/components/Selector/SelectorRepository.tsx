@@ -8,7 +8,7 @@ import PopupMenu from "../PopupMenu/PopupMenu";
 import List from "../List/List";
 import {useDispatch, useSelector} from "react-redux";
 import Text from "../Text/Text";
-import {actionApiRequest, actionSetCurrentRepository, actionSetFiles} from "../../lib/store";
+import {actionApiRequest, actionSetCurrentRepository, actionSetFiles, actionSetCurrentHash} from "../../lib/store";
 import Link from "next/link";
 
 const cnSelector = cn('Selector');

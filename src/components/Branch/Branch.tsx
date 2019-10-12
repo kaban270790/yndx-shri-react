@@ -12,8 +12,13 @@ type Branch = { //todo Выпилить от сюда в общее место
 };
 type Commit = { //todo Выпилить от сюда в общее место
     hash: string,
-    ts: number,
-    committer: string
+    timestamp: number,
+    committer: string,
+    source: string
+};
+type Repository = { //todo Выпилить от сюда в общее место
+    name: string,
+    lastCommit: Commit,
 };
 export default () => {
     const {currentRepositoryName, repositories} = useSelector((state: ComponentState) => {
@@ -22,8 +27,8 @@ export default () => {
             repositories: state.repositories
         }
     });
-    let commit = {};
-    repositories.forEach((repository) => {//todo переделать что бы хранить активный репозиторий как он есть в стэйте или метод для получения этого
+    let commit: Commit | undefined;
+    repositories.forEach((repository: Repository) => {//todo переделать что бы хранить активный репозиторий как он есть в стэйте или метод для получения этого
         if (repository.name === currentRepositoryName) {
             commit = repository.lastCommit;
         }
@@ -37,24 +42,25 @@ export default () => {
             }}>{currentRepositoryName}</Text>
             <SelectorBranch className={cnBranch('BranchName')}/>
         </div>
-        <div className={cnBranch('LastCommit')}>
-            <Text tag={'span'} mods={{
-                color: 'black',
-                size: 14,
-                lHeight: 20
-            }}>Last commit <Text
-                tag={'a'}
-                href={'#'}
-                mods={{color: 'link', underline: 'non'}}
-            >{commit.hash.slice(0, 6)}</Text> on <Text
-                tag={'a'}
-                href={'#'}
-                mods={{color: 'link', underline: 'non'}}
-            >{moment(commit.timestamp).format('lll')}</Text> by <Text
-                tag={'span'}
-                elem={'FirstSymbol'}
-            >{commit.committer.slice(0, 1)}</Text>{commit.committer.slice(1)}
-            </Text>
-        </div>
+        {commit !== undefined ?
+            <div className={cnBranch('LastCommit')}>
+                <Text tag={'span'} mods={{
+                    color: 'black',
+                    size: 14,
+                    lHeight: 20
+                }}>Last commit <Text
+                    tag={'a'}
+                    href={'#'}
+                    mods={{color: 'link', underline: 'non'}}
+                >{commit.hash.slice(0, 6)}</Text> on <Text
+                    tag={'a'}
+                    href={'#'}
+                    mods={{color: 'link', underline: 'non'}}
+                >{moment(commit.timestamp).format('lll')}</Text> by <Text
+                    tag={'span'}
+                    elem={'FirstSymbol'}
+                >{commit.committer.slice(0, 1)}</Text>{commit.committer.slice(1)}
+                </Text>
+            </div> : null}
     </div>;
 };
