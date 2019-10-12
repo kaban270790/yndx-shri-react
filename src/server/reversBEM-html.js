@@ -79,7 +79,6 @@ function replace(code) {
                     toUpper(mod, false),
                     toUpper(val, false)
                 ];
-                // console.log(newVar);
                 return newVar.filter(value => value && value.length > 0)
                     .join('-');
             }).join(" ");

@@ -102,7 +102,6 @@ export default (props) => {
             </TableTHead>
             <TableTBody>
                 {files.length > 0 ? files.map((file, index) => {
-                    // console.log(file);
                     const url = `/repos/${currentRepositoryName}/tree/${commit.hash}/${file.fullPath}`;
                     const {timestamp, hash, committer, source} = file.lastCommit || {
                         timestamp: null,
