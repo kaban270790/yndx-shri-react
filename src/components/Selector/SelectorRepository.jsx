@@ -31,7 +31,6 @@ export default (props) => {
     const dispatch = useDispatch();
     const changeRepository = useCallback(
         (repository) => {
-            console.log(repository);
             dispatch(actionSetCurrentRepository(repository.name));
             dispatch(actionSetCurrentHash(repository.lastCommit.hash));
             dispatch(actionSetFiles({files: []}));
