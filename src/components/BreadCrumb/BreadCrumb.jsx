@@ -83,7 +83,14 @@ export default (props) => {
                         <Text key={`${index}_text`}
                               tag={'span'}
                               onClick={openDir.bind(this, crumb.repository, crumb.hash, crumb.path)}
-                              mods={{...textMods, ...(isLast ? {color: 'black', width: 'bold'} : {})}}
+                              mods={{
+                                  ...textMods, ...(isLast ? {
+                                      color: 'black',
+                                      width: 'bold',
+                                  } : {
+                                      cursor: 'pointer'
+                                  })
+                              }}
                         >{crumb.name}</Text>
                     </Link>
                     <Text key={`${index}_separator`} mods={textMods}>&nbsp;/&nbsp;</Text>

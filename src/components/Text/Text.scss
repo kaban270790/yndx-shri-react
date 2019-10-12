@@ -5,6 +5,12 @@
     color: #FF3029;
   }
 
+  &_cursor {
+    &_pointer {
+      cursor: pointer;
+    }
+  }
+
   &_size {
     &_14 {
       font-size: 14px;

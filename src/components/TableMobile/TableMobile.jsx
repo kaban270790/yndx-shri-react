@@ -108,7 +108,7 @@ export default (props) => {
                     {file.ext === 'folder' ?
                         <Link href={`/fileList`} as={url}>
                             <IconPlusIcon
-                                mods={{marginL: 8}}
+                                mods={{marginL: 8, cursor:'pointer'}}
                                 onClick={openDir.bind(this, currentRepositoryName, commit.hash, file.fullPath)}
                                 className={cnIconNav({arrow: 'right'})}
                             />

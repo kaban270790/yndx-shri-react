@@ -5,6 +5,12 @@
   &-Icon {
     flex-shrink: 0;
 
+    &_cursor {
+      &_pointer {
+        cursor: pointer;
+      }
+    }
+
     &_marginL {
       &_8 {
         margin-left: 8px;
@@ -34,6 +40,7 @@
       &_center {
         align-items: center;
       }
+
       &_left {
         align-items: flex-start;
       }

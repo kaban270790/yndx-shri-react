@@ -128,7 +128,8 @@ export default (props) => {
                                                   mods={{
                                                       ...modsTdText,
                                                       width: 'bold',
-                                                      underline: 'non'
+                                                      underline: 'non',
+                                                      cursor: 'pointer'
                                                   }}>{file.name}</Text>
                                         </Link> :
                                         <Text tag={'span'}
@@ -162,7 +163,7 @@ export default (props) => {
                             </TableCell>
                             <TableCell mods={{...modsTd, width: 2, align: 'right'}}>
                                 <Text tag={'span'} mods={modsTdText}>
-                                    {timestamp?moment(timestamp).fromNow() : ''}
+                                    {timestamp ? moment(timestamp).fromNow() : ''}
                                 </Text>
                             </TableCell>
                         </TableRow>
