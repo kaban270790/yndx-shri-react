@@ -8,7 +8,7 @@ import Text from "../Text/Text.tsx";
 import TableTBody from "../Table/TableTBody.jsx";
 import moment from "moment";
 import IconPlus from "../IconPlus/IconPlus.jsx";
-import IconPlusIcon from "../IconPlus/IconPlus-Icon.jsx";
+import IconPlusIcon from "../IconPlus/IconPlus-Icon.js";
 import IconPlusText from "../IconPlus/IconPlus-Text";
 import '../IconFile/IconFile.scss';
 import {useDispatch, useSelector} from "react-redux";

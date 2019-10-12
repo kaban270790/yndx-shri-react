@@ -7,7 +7,7 @@ import {cn} from "@bem-react/classname";
 import List from "../List/List";
 import ListItem from "../List/List-Item.jsx";
 import IconPlus from "../IconPlus/IconPlus.jsx";
-import IconPlusIcon from '../IconPlus/IconPlus-Icon.jsx';
+import IconPlusIcon from '../IconPlus/IconPlus-Icon.js';
 import IconPlusText from '../IconPlus/IconPlus-Text';
 import Text from "../Text/Text.tsx";
 import moment from "moment";
