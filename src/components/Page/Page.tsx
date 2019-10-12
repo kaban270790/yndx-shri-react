@@ -7,7 +7,11 @@ import Article from "../Article/Article";
 
 const cnPage = cn('Page');
 
-export default (props) => {
+interface Props {
+    children: React.ReactNode;
+}
+
+export default (props: Props) => {
     return <div className={cnPage()}>
         <Header/>
         <Article>

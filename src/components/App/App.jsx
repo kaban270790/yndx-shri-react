@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head.js";
-import Page from "../Page/Page.jsx"
+import Page from "../Page/Page"
 
 export default class App extends React.Component {
     constructor(props) {
