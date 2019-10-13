@@ -1,12 +1,21 @@
 import './TabList.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
-import Tab from "../Tab/Tab.jsx";
+import Tab from "../Tab/Tab";
 
 const cnTabList = cn('TabList');
 
-export default (props) => {
-    const tabs = [
+interface Props {
+    active: string
+}
+
+type Tab = {
+    name: string,
+    text: string,
+}
+
+export default (props: Props) => {
+    const tabs: Tab[] = [
         {
             name: 'files',
             text: 'Files'

@@ -1,12 +1,14 @@
 import React from "react";
 import Head from "next/head.js";
-import Page from "../Page/Page.jsx"
+import Page from "../Page/Page"
+import {Store} from "redux";
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.props = props;
-    }
+interface Props {
+    title?: string;
+    children: React.ReactNode;
+}
+
+export default class App extends React.Component<Props> {
 
     render() {
         return (

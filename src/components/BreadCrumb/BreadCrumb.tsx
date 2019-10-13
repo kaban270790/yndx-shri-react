@@ -1,22 +1,22 @@
 import './BreadCrumb.scss';
 import React, {useCallback} from "react";
 import {cn} from "@bem-react/classname";
-import Text from "../Text/Text.jsx";
+import Text, {Mods as TextMods} from "../Text/Text";
 import {useDispatch, useSelector} from "react-redux";
-import {actionApiRequest, actionSetCurrentPath, actionSetFiles} from "../../lib/store.js";
+import {actionApiRequest, actionSetCurrentPath, actionSetFiles, State} from "../../lib/store";
 import Link from "next/link.js";
 
 const cnBreadCrumb = cn('BreadCrumb');
 
-export default (props) => {
-    const {currentPath, currentRepositoryName, repositories, currentHash} = useSelector((state) => {
+export default () => {
+    const {currentPath, currentRepositoryName, currentHash} = useSelector((state: State) => {
         return {
             currentPath: state.currentPath || '',
             currentRepositoryName: state.currentRepository,
             currentHash: state.currentHash
         }
     });
-    const textMods = {
+    const textMods: TextMods = {
         lHeight: 20,
         size: 14,
         color: 'gray',
@@ -82,7 +82,7 @@ export default (props) => {
                     <Link href={`/fileList`} as={crumb.href}>
                         <Text key={`${index}_text`}
                               tag={'span'}
-                              onClick={openDir.bind(this, crumb.repository, crumb.hash, crumb.path)}
+                              onClick={openDir.bind(null, crumb.repository, crumb.hash, crumb.path)}
                               mods={{
                                   ...textMods, ...(isLast ? {
                                       color: 'black',

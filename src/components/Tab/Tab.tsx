@@ -2,11 +2,16 @@ import './Tab.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
-import Text from "../Text/Text.jsx";
+import Text from "../Text/Text";
 
 const cnTab = cn('Tab');
 
-export default (props) => {
+interface Props {
+    isActive: boolean,
+    children: React.ReactNode
+}
+
+export default (props: Props) => {
     const clickHandler = () => {
         if (!props.isActive && alert) {
             alert('Функционал в разработке');

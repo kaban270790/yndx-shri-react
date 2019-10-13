@@ -5,10 +5,10 @@ import './../List/List.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
 import {classnames as classNames} from "@bem-react/classnames";
-import PopupMenu from "../PopupMenu/PopupMenu.jsx";
-import List from "../List/List.jsx";
-import Text from "../Text/Text.jsx";
-import PopupBranch from "../PopupBranch/PopupBranch.jsx";
+import PopupMenu from "../PopupMenu/PopupMenu";
+import List from "../List/List";
+import Text from "../Text/Text";
+import PopupBranch from "../PopupBranch/PopupBranch";
 import moment from "moment";
 
 const cnSelector = cn('Selector');
@@ -16,8 +16,17 @@ const cnPopupMenu = cn('PopupMenu');
 const cnPopupBranch = cn('PopupBranch');
 const cnList = cn('List');
 
-export default (props) => {
-    const branches = [
+interface Props {
+    className?: string;
+}
+
+type Branch = {
+    name: string
+    ts: number
+};
+
+export default (props: Props) => {
+    const branches: Branch[] = [
         {
             name: 'asdasd',
             ts: Date.now(),
@@ -35,7 +44,7 @@ export default (props) => {
             ts: Date.now(),
         }
     ];
-    const curBranch = {
+    const curBranch: Branch = {
         name: 'curr',
         ts: Date.now(),
     };

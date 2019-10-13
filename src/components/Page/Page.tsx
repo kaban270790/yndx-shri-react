@@ -1,13 +1,17 @@
 import './Page.scss';
 import React from "react";
 import {cn} from "@bem-react/classname";
-import Header from "../Header/Header.jsx";
-import Footer from "../Footer/Footer.jsx";
-import Article from "../Article/Article.jsx";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import Article from "../Article/Article";
 
 const cnPage = cn('Page');
 
-export default (props) => {
+interface Props {
+    children: React.ReactNode;
+}
+
+export default (props: Props) => {
     return <div className={cnPage()}>
         <Header/>
         <Article>

@@ -5,11 +5,11 @@ import {
     actionSetCurrentRepository,
     actionSetFiles,
     actionSetRepositories
-} from "../src/lib/store.js";
+} from "../src/lib/store";
 import {connect} from "react-redux";
 import nextExpressPage from "next-express/page";
-import App from "../src/components/App/App.jsx";
-import TabList from "../src/components/TabList/TabList.jsx";
+import App from "../src/components/App/App";
+import TabList from "../src/components/TabList/TabList";
 import Files from "../src/components/Files/Files.jsx";
 import TableMobile from "../src/components/TableMobile/TableMobile.jsx";
 
